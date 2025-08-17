@@ -13,8 +13,9 @@ public class TooDoo {
                              + "Toodles! Visit me again soon!\n" 
                              + "____________________________________________________________";
         String userInput;
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int itemsInList = 0;
+        String[] splitUserInput;
 
         System.out.println(welcomeMessage);
 
@@ -24,18 +25,35 @@ public class TooDoo {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("____________________________________________________________");
+                System.out.println("____________________________________________________________\n"
+                                    + "Presenting too you your task list:");
                 for (int i = 0;i < itemsInList;i++) {
-                    System.out.println((i + 1) + ". " + taskList[i]);
+                    System.out.println((i + 1) + "." + taskList[i]);
                 }
                 System.out.println("____________________________________________________________");
             } else {
-                System.out.println("____________________________________________________________\n" 
-                             + "added: " + userInput + "\n" 
-                             + "____________________________________________________________");
-                
-                taskList[itemsInList] = userInput;
-                itemsInList++;
+                splitUserInput = userInput.split(" ");
+
+                if (splitUserInput[0].equals("mark")) {
+                    taskList[Integer.parseInt(splitUserInput[1]) - 1].markAsDone();
+                    System.out.println("____________________________________________________________\n" 
+                                + "Good Job! You have completed this task:\n" 
+                                + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
+                                + "____________________________________________________________");
+                } else if (splitUserInput[0].equals("unmark")) {
+                    taskList[Integer.parseInt(splitUserInput[1]) - 1].markAsNotDone();
+                    System.out.println("____________________________________________________________\n" 
+                                + "It's okay! Let's finish it another time!\n" 
+                                + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
+                                + "____________________________________________________________");
+                } else {
+                    System.out.println("____________________________________________________________\n" 
+                                + "Added: " + userInput + "\n" 
+                                + "____________________________________________________________");
+                    
+                    taskList[itemsInList] = new Task(userInput);
+                    itemsInList++;
+                }
             }
         }
 
