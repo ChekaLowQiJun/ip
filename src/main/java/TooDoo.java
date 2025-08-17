@@ -13,19 +13,30 @@ public class TooDoo {
                              + "Toodles! Visit me again soon!\n" 
                              + "____________________________________________________________";
         String userInput;
+        String[] taskList = new String[100];
+        int itemsInList = 0;
 
         System.out.println(welcomeMessage);
 
         while (true) {
             userInput = userInputScanner.nextLine();
 
-            if (userInput == "bye") {
+            if (userInput.equals("bye")) {
                 break;
-            }
-
-            System.out.println("____________________________________________________________\n" 
-                             + userInput + "\n" 
+            } else if (userInput.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0;i < itemsInList;i++) {
+                    System.out.println((i + 1) + ". " + taskList[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________\n" 
+                             + "added: " + userInput + "\n" 
                              + "____________________________________________________________");
+                
+                taskList[itemsInList] = userInput;
+                itemsInList++;
+            }
         }
 
         userInputScanner.close();
