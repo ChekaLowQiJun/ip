@@ -59,6 +59,9 @@ public class TooDoo {
             } catch (EmptyDescriptionException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
+            } catch (EmptyDeadlineException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
             }
         }
     }
@@ -100,7 +103,7 @@ public class TooDoo {
         itemsInList++;
     }
 
-    public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException {
+    public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException, EmptyDeadlineException {
         taskList[itemsInList] = new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]);
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList[itemsInList] + "\n" 
@@ -131,7 +134,7 @@ public class TooDoo {
         return description.toString();
     }
 
-    public static String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException {
+    public static String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException, EmptyDeadlineException {
         String[] deadlineOutput = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
@@ -149,6 +152,8 @@ public class TooDoo {
 
         if (description.length() == 0) {
             throw new EmptyDescriptionException();
+        } else if (deadline.length() == 0) {
+            throw new EmptyDeadlineException();
         }
 
         deadlineOutput[0] = description.deleteCharAt(description.length() - 1).toString();
