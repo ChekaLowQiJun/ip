@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TooDoo {
@@ -7,7 +8,7 @@ public class TooDoo {
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int itemsInList = 0;
 
     public static void getWelcome() {
@@ -80,48 +81,48 @@ public class TooDoo {
         System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
 
         for (int i = 0;i < itemsInList;i++) {
-            System.out.println((i + 1) + "." + taskList[i]);
+            System.out.println((i + 1) + "." + taskList.get(i));
         }
 
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void mark(int index) {
-        taskList[index].markAsDone();
+        taskList.get(index).markAsDone();
         System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
-                            + taskList[index] + "\n" 
+                            + taskList.get(index) + "\n" 
                             + HORIZONTAL_LINE);
     }
 
     public static void unmark(int index) {
-        taskList[index].markAsNotDone();
+        taskList.get(index).markAsNotDone();
         System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
-                            + taskList[index] + "\n" 
+                            + taskList.get(index) + "\n" 
                             + HORIZONTAL_LINE);
     }
 
     public static void addToDo(String[] splitUserInput) throws EmptyDescriptionException {
-        taskList[itemsInList] = new ToDo(processToDoString(splitUserInput));
+        taskList.add(new ToDo(processToDoString(splitUserInput)));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList[itemsInList] + "\n" 
+                            + taskList.get(itemsInList) + "\n" 
                             + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
         itemsInList++;
     }
 
     public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException, EmptyDeadlineException {
-        taskList[itemsInList] = new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]);
+        taskList.add(new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList[itemsInList] + "\n" 
+                            + taskList.get(itemsInList) + "\n" 
                             + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
         itemsInList++;
     }
 
     public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
-        taskList[itemsInList] = new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]);
+        taskList.add(new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList[itemsInList] + "\n" 
+                            + taskList.get(itemsInList) + "\n" 
                             + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
         itemsInList++;
