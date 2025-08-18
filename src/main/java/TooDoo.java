@@ -51,6 +51,9 @@ public class TooDoo {
                     TooDoo.addDeadline(splitUserInput);
                 } else if (keyword.equals("event")) {
                     TooDoo.addEvent(splitUserInput);
+                } else if (keyword.equals("delete")) {
+                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    TooDoo.delete(index);
                 } else {
                     throw new UnknownKeywordException(keyword);
                 }
@@ -99,6 +102,14 @@ public class TooDoo {
         System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
                             + taskList.get(index) + "\n" 
                             + HORIZONTAL_LINE);
+    }
+
+    public static void delete(int index) {
+        System.out.println(HORIZONTAL_LINE + "I have removed this task from the list for you:\n" 
+                            + taskList.get(index) + "\n" + "You now have " + (itemsInList - 1) + " tasks remaining in the list.\n" 
+                            + HORIZONTAL_LINE);
+        taskList.remove(index);
+        itemsInList--;
     }
 
     public static void addToDo(String[] splitUserInput) throws EmptyDescriptionException {
