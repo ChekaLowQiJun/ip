@@ -42,12 +42,8 @@ public class TooDoo {
             } else if (keyword.equals("unmark")) {
                 int index = Integer.parseInt(splitUserInput[1]) - 1;
                 TooDoo.unmark(index);
-            } else {
-                System.out.println(HORIZONTAL_LINE + "Added: " + userInput + "\n" 
-                                    + HORIZONTAL_LINE);
-                
-                taskList[itemsInList] = new Task(userInput);
-                itemsInList++;
+            } else if (keyword.equals("todo")) {
+                TooDoo.addToDo(splitUserInput);
             }
         }
     }
@@ -78,6 +74,23 @@ public class TooDoo {
         System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
                             + taskList[index] + "\n" 
                             + HORIZONTAL_LINE);
+    }
+
+    public static void addToDo(String[] splitUserInput) {
+        taskList[itemsInList] = new ToDo(processToDoString(splitUserInput));
+        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
+                            + taskList[itemsInList] + "\n" 
+                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + HORIZONTAL_LINE);
+        itemsInList++;
+    }
+
+    public static String processToDoString(String[] splitToDoString) {
+        StringBuilder description = new StringBuilder();
+        for (int i = 1;i < splitToDoString.length;i++) {
+            description.append(splitToDoString[i] + " ");
+        }
+        return description.toString();
     }
 
     public static void main(String[] args) {
