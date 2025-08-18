@@ -12,13 +12,16 @@ public class TooDoo {
                 +  HORIZONTAL_LINE;
     }
 
+    public static String getExit() {
+        return "____________________________________________________________\n" 
+                + "Toodles! Visit me again soon!\n" 
+                + "____________________________________________________________";
+    }
+
     public static void main(String[] args) {
 
         Scanner userInputScanner = new Scanner(System.in);
                                 
-        String exitMessage = "____________________________________________________________\n" 
-                             + "Toodles! Visit me again soon!\n" 
-                             + "____________________________________________________________";
         String userInput;
         Task[] taskList = new Task[100];
         int itemsInList = 0;
@@ -65,6 +68,6 @@ public class TooDoo {
         }
 
         userInputScanner.close();
-        System.out.println(exitMessage);
+        System.out.println(getExit());
     }
 }
