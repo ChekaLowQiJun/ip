@@ -56,6 +56,9 @@ public class TooDoo {
             } catch (UnknownKeywordException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
             }
         }
     }
@@ -88,7 +91,7 @@ public class TooDoo {
                             + HORIZONTAL_LINE);
     }
 
-    public static void addToDo(String[] splitUserInput) {
+    public static void addToDo(String[] splitUserInput) throws EmptyDescriptionException {
         taskList[itemsInList] = new ToDo(processToDoString(splitUserInput));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList[itemsInList] + "\n" 
@@ -97,7 +100,7 @@ public class TooDoo {
         itemsInList++;
     }
 
-    public static void addDeadline(String[] splitUserInput) {
+    public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException {
         taskList[itemsInList] = new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]);
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList[itemsInList] + "\n" 
@@ -106,7 +109,7 @@ public class TooDoo {
         itemsInList++;
     }
 
-    public static void addEvent(String[] splitUserInput) {
+    public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException {
         taskList[itemsInList] = new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]);
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList[itemsInList] + "\n" 
@@ -115,15 +118,20 @@ public class TooDoo {
         itemsInList++;
     }
 
-    public static String processToDoString(String[] splitToDoString) {
+    public static String processToDoString(String[] splitToDoString) throws EmptyDescriptionException {
         StringBuilder description = new StringBuilder();
         for (int i = 1;i < splitToDoString.length;i++) {
             description.append(splitToDoString[i] + " ");
         }
+
+        if (description.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
+
         return description.toString();
     }
 
-    public static String[] processDeadlineString(String[] splitDeadlineString) {
+    public static String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException {
         String[] deadlineOutput = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
@@ -138,13 +146,18 @@ public class TooDoo {
                 deadline.append(splitDeadlineString[i] + " ");
             }
         }
+
+        if (description.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
+
         deadlineOutput[0] = description.deleteCharAt(description.length() - 1).toString();
         deadlineOutput[1] = deadline.deleteCharAt(deadline.length() - 1).toString();
 
         return deadlineOutput;
     }
 
-    public static String[] processEventString(String[] splitEventString) {
+    public static String[] processEventString(String[] splitEventString) throws EmptyDescriptionException {
         String[] eventOutput = new String[3];
         StringBuilder description = new StringBuilder();
         StringBuilder from = new StringBuilder();
@@ -165,6 +178,11 @@ public class TooDoo {
                 to.append(splitEventString[i] + " ");
             }
         }
+
+        if (description.length() == 0) {
+            throw new EmptyDescriptionException();
+        }
+
         eventOutput[0] = description.deleteCharAt(description.length() - 1).toString();
         eventOutput[1] = from.deleteCharAt(from.length() - 1).toString();
         eventOutput[2] = to.deleteCharAt(to.length() - 1).toString();

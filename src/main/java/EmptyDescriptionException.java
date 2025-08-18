@@ -1,5 +1,5 @@
 public class EmptyDescriptionException extends Exception {
-    public EmptyDescriptionException(String message) {
-            super(message);
+    public EmptyDescriptionException() {
+            super("Have you made a mistake? It would seem that your task's description is empty.");
         }
 }
