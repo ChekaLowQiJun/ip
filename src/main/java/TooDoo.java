@@ -62,6 +62,9 @@ public class TooDoo {
             } catch (EmptyDeadlineException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
+            } catch (EmptyFromException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
             }
         }
     }
@@ -112,7 +115,7 @@ public class TooDoo {
         itemsInList++;
     }
 
-    public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException {
+    public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException, EmptyFromException {
         taskList[itemsInList] = new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]);
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList[itemsInList] + "\n" 
@@ -162,7 +165,7 @@ public class TooDoo {
         return deadlineOutput;
     }
 
-    public static String[] processEventString(String[] splitEventString) throws EmptyDescriptionException {
+    public static String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, EmptyFromException {
         String[] eventOutput = new String[3];
         StringBuilder description = new StringBuilder();
         StringBuilder from = new StringBuilder();
@@ -186,6 +189,8 @@ public class TooDoo {
 
         if (description.length() == 0) {
             throw new EmptyDescriptionException();
+        } else if (from.length() == 0) {
+            throw new EmptyFromException();
         }
 
         eventOutput[0] = description.deleteCharAt(description.length() - 1).toString();
