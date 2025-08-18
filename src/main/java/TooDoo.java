@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class TooDoo {
 
+    private static Scanner userInputScanner = new Scanner(System.in);
+
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
@@ -18,9 +20,11 @@ public class TooDoo {
                 + "____________________________________________________________";
     }
 
-    public static void main(String[] args) {
+    public static String getUserInput() {
+        return userInputScanner.nextLine();
+    }
 
-        Scanner userInputScanner = new Scanner(System.in);
+    public static void main(String[] args) {
                                 
         String userInput;
         Task[] taskList = new Task[100];
@@ -30,7 +34,7 @@ public class TooDoo {
         System.out.println(getWelcome());
 
         while (true) {
-            userInput = userInputScanner.nextLine();
+            userInput = getUserInput();
 
             if (userInput.equals("bye")) {
                 break;
