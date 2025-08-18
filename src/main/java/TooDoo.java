@@ -40,10 +40,8 @@ public class TooDoo {
                 int index = Integer.parseInt(splitUserInput[1]) - 1;
                 TooDoo.mark(index);
             } else if (keyword.equals("unmark")) {
-                taskList[Integer.parseInt(splitUserInput[1]) - 1].markAsNotDone();
-                System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
-                                    + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
-                                    + HORIZONTAL_LINE);
+                int index = Integer.parseInt(splitUserInput[1]) - 1;
+                TooDoo.unmark(index);
             } else {
                 System.out.println(HORIZONTAL_LINE + "Added: " + userInput + "\n" 
                                     + HORIZONTAL_LINE);
@@ -71,6 +69,13 @@ public class TooDoo {
     public static void mark(int index) {
         taskList[index].markAsDone();
         System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
+                            + taskList[index] + "\n" 
+                            + HORIZONTAL_LINE);
+    }
+
+    public static void unmark(int index) {
+        taskList[index].markAsNotDone();
+        System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
                             + taskList[index] + "\n" 
                             + HORIZONTAL_LINE);
     }
