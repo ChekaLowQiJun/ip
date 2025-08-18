@@ -28,26 +28,34 @@ public class TooDoo {
 
     public static void processUserInput() {
          while (true) {
-            String userInput = TooDoo.getUserInput();
-            String[] splitUserInput = userInput.split(" ");
-            String keyword = splitUserInput[0];
 
-            if (keyword.equals("bye")) {
-                break;
-            } else if (keyword.equals("list")) {
-                TooDoo.printList();
-            } else if (keyword.equals("mark")) {
-                int index = Integer.parseInt(splitUserInput[1]) - 1;
-                TooDoo.mark(index);
-            } else if (keyword.equals("unmark")) {
-                int index = Integer.parseInt(splitUserInput[1]) - 1;
-                TooDoo.unmark(index);
-            } else if (keyword.equals("todo")) {
-                TooDoo.addToDo(splitUserInput);
-            } else if (keyword.equals("deadline")) {
-                TooDoo.addDeadline(splitUserInput);
-            } else if (keyword.equals("event")) {
-                TooDoo.addEvent(splitUserInput);
+            try {
+                String userInput = TooDoo.getUserInput();
+                String[] splitUserInput = userInput.split(" ");
+                String keyword = splitUserInput[0];
+
+                if (keyword.equals("bye")) {
+                    break;
+                } else if (keyword.equals("list")) {
+                    TooDoo.printList();
+                } else if (keyword.equals("mark")) {
+                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    TooDoo.mark(index);
+                } else if (keyword.equals("unmark")) {
+                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    TooDoo.unmark(index);
+                } else if (keyword.equals("todo")) {
+                    TooDoo.addToDo(splitUserInput);
+                } else if (keyword.equals("deadline")) {
+                    TooDoo.addDeadline(splitUserInput);
+                } else if (keyword.equals("event")) {
+                    TooDoo.addEvent(splitUserInput);
+                } else {
+                    throw new UnknownKeywordException(keyword);
+                }
+            } catch (UnknownKeywordException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
             }
         }
     }
