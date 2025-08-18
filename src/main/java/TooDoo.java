@@ -46,6 +46,8 @@ public class TooDoo {
                 TooDoo.addToDo(splitUserInput);
             } else if (keyword.equals("deadline")) {
                 TooDoo.addDeadline(splitUserInput);
+            } else if (keyword.equals("event")) {
+                TooDoo.addEvent(splitUserInput);
             }
         }
     }
@@ -96,6 +98,15 @@ public class TooDoo {
         itemsInList++;
     }
 
+    public static void addEvent(String[] splitUserInput) {
+        taskList[itemsInList] = new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]);
+        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
+                            + taskList[itemsInList] + "\n" 
+                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + HORIZONTAL_LINE);
+        itemsInList++;
+    }
+
     public static String processToDoString(String[] splitToDoString) {
         StringBuilder description = new StringBuilder();
         for (int i = 1;i < splitToDoString.length;i++) {
@@ -108,12 +119,12 @@ public class TooDoo {
         String[] deadlineOutput = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
-        boolean beforeDescription = true;
+        boolean beforeDeadline = true;
 
         for (int i = 1;i < splitDeadlineString.length;i++) {
             if (splitDeadlineString[i].equals("/by")) {
-                beforeDescription = false;
-            } else if (beforeDescription) {
+                beforeDeadline = false;
+            } else if (beforeDeadline) {
                 description.append(splitDeadlineString[i] + " ");
             } else {
                 deadline.append(splitDeadlineString[i] + " ");
@@ -123,7 +134,34 @@ public class TooDoo {
         deadlineOutput[1] = deadline.toString();
 
         return deadlineOutput;
+    }
 
+    public static String[] processEventString(String[] splitEventString) {
+        String[] eventOutput = new String[3];
+        StringBuilder description = new StringBuilder();
+        StringBuilder from = new StringBuilder();
+        StringBuilder to = new StringBuilder();
+        boolean beforeFrom = true;
+        boolean beforeTo = true;
+
+        for (int i = 1;i < splitEventString.length;i++) {
+            if (splitEventString[i].equals("/from")) {
+                beforeFrom = false;
+            } else if (splitEventString[i].equals("/to")) {
+                beforeTo = false;
+            } else if (beforeFrom) {
+                description.append(splitEventString[i] + " ");
+            } else if (beforeTo) {
+                from.append(splitEventString[i] + " ");
+            }else {
+                to.append(splitEventString[i] + " ");
+            }
+        }
+        eventOutput[0] = description.toString();
+        eventOutput[1] = from.toString();
+        eventOutput[2] = to.toString();
+
+        return eventOutput;
     }
 
     public static void main(String[] args) {
