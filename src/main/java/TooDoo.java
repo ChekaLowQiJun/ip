@@ -35,24 +35,20 @@ public class TooDoo {
             if (keyword.equals("bye")) {
                 break;
             } else if (keyword.equals("list")) {
-                System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
-                for (int i = 0;i < itemsInList;i++) {
-                    System.out.println((i + 1) + "." + taskList[i]);
-                }
-                System.out.println(HORIZONTAL_LINE);
+                TooDoo.printList();
             } else if (keyword.equals("mark")) {
                 taskList[Integer.parseInt(splitUserInput[1]) - 1].markAsDone();
                     System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
-                                + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
-                                + HORIZONTAL_LINE);
+                                        + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
+                                        + HORIZONTAL_LINE);
             } else if (keyword.equals("unmark")) {
                 taskList[Integer.parseInt(splitUserInput[1]) - 1].markAsNotDone();
                 System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
-                            + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
-                            + HORIZONTAL_LINE);
+                                    + taskList[Integer.parseInt(splitUserInput[1]) - 1] + "\n" 
+                                    + HORIZONTAL_LINE);
             } else {
                 System.out.println(HORIZONTAL_LINE + "Added: " + userInput + "\n" 
-                            + HORIZONTAL_LINE);
+                                    + HORIZONTAL_LINE);
                 
                 taskList[itemsInList] = new Task(userInput);
                 itemsInList++;
@@ -63,6 +59,16 @@ public class TooDoo {
     public static String getKeyWord(String[] splitUserInput) {
         return splitUserInput[0];
     }
+
+    public static void printList() {
+        System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
+
+        for (int i = 0;i < itemsInList;i++) {
+            System.out.println((i + 1) + "." + taskList[i]);
+        }
+
+        System.out.println(HORIZONTAL_LINE);
+}
 
     public static void main(String[] args) {
 
