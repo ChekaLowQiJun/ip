@@ -130,8 +130,8 @@ public class TooDoo {
                 deadline.append(splitDeadlineString[i] + " ");
             }
         }
-        deadlineOutput[0] = description.toString();
-        deadlineOutput[1] = deadline.toString();
+        deadlineOutput[0] = description.deleteCharAt(description.length() - 1).toString();
+        deadlineOutput[1] = deadline.deleteCharAt(deadline.length() - 1).toString();
 
         return deadlineOutput;
     }
@@ -157,9 +157,9 @@ public class TooDoo {
                 to.append(splitEventString[i] + " ");
             }
         }
-        eventOutput[0] = description.toString();
-        eventOutput[1] = from.toString();
-        eventOutput[2] = to.toString();
+        eventOutput[0] = description.deleteCharAt(description.length() - 1).toString();
+        eventOutput[1] = from.deleteCharAt(from.length() - 1).toString();
+        eventOutput[2] = to.deleteCharAt(to.length() - 1).toString();
 
         return eventOutput;
     }
