@@ -44,6 +44,8 @@ public class TooDoo {
                 TooDoo.unmark(index);
             } else if (keyword.equals("todo")) {
                 TooDoo.addToDo(splitUserInput);
+            } else if (keyword.equals("deadline")) {
+                TooDoo.addDeadline(splitUserInput);
             }
         }
     }
@@ -85,12 +87,43 @@ public class TooDoo {
         itemsInList++;
     }
 
+    public static void addDeadline(String[] splitUserInput) {
+        taskList[itemsInList] = new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]);
+        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
+                            + taskList[itemsInList] + "\n" 
+                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + HORIZONTAL_LINE);
+        itemsInList++;
+    }
+
     public static String processToDoString(String[] splitToDoString) {
         StringBuilder description = new StringBuilder();
         for (int i = 1;i < splitToDoString.length;i++) {
             description.append(splitToDoString[i] + " ");
         }
         return description.toString();
+    }
+
+    public static String[] processDeadlineString(String[] splitDeadlineString) {
+        String[] deadlineOutput = new String[2];
+        StringBuilder description = new StringBuilder();
+        StringBuilder deadline = new StringBuilder();
+        boolean beforeDescription = true;
+
+        for (int i = 1;i < splitDeadlineString.length;i++) {
+            if (splitDeadlineString[i].equals("/by")) {
+                beforeDescription = false;
+            } else if (beforeDescription) {
+                description.append(splitDeadlineString[i] + " ");
+            } else {
+                deadline.append(splitDeadlineString[i] + " ");
+            }
+        }
+        deadlineOutput[0] = description.toString();
+        deadlineOutput[1] = deadline.toString();
+
+        return deadlineOutput;
+
     }
 
     public static void main(String[] args) {
