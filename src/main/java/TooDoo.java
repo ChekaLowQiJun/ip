@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -10,6 +12,7 @@ public class TooDoo {
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String STORAGE_PATH = "./../storage/TooDooList.txt";
+    // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int itemsInList = 0;
@@ -239,18 +242,56 @@ public class TooDoo {
     public static void saveList() {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH);
+            StringBuilder tasks = new StringBuilder();
             for (int i = 0;i < itemsInList;i++) {
-                fw.write(taskList.get(i).getTaskString());
+                tasks.append(taskList.get(i).getTaskString() + "\n");
             }
+            fw.write(tasks.toString());
             fw.close();
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
     }
 
+    public static void loadList() {
+        try {
+            File taskListFile = new File(STORAGE_PATH); 
+            Scanner taskListScanner = new Scanner(taskListFile);
+            while (taskListScanner.hasNext()) {
+                taskList.add(processStorageInput(taskListScanner.nextLine()));
+                itemsInList++;
+            }
+            taskListScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static Task processStorageInput(String input) {
+        String[] splitInput = input.split(" \\| ");
+        String typeOfTask = splitInput[0];
+        boolean isDone = splitInput[1].equals("X") ? true : false;
+        Task task;
+
+        if (typeOfTask.equals("T")) {
+            task = new ToDo(splitInput[2]);
+        } else if (typeOfTask.equals("D")) {
+            task = new Deadline(splitInput[2], splitInput[3]);
+        } else {
+            task = new Event(splitInput[2], splitInput[3], splitInput[4]);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
     public static void main(String[] args) {
 
         TooDoo.getWelcome();
+        TooDoo.loadList();
         TooDoo.processUserInput();
         TooDoo.saveList();
         TooDoo.getExit();
