@@ -1,4 +1,4 @@
-public enum Keywords {
+public enum Keyword {
     BYE,
     LIST,
     MARK,
@@ -6,5 +6,6 @@ public enum Keywords {
     TODO,
     DEADLINE,
     EVENT,
-    DELETE
+    DELETE,
+    UNKNOWN
 }

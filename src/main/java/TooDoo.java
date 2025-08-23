@@ -30,32 +30,48 @@ public class TooDoo {
     public static void processUserInput() {
          while (true) {
 
+            Keyword keyword;
+            String userInput = TooDoo.getUserInput();
+            String[] splitUserInput = userInput.split(" ");
+            String firstWord = splitUserInput[0];
+            int index;
+            
             try {
-                String userInput = TooDoo.getUserInput();
-                String[] splitUserInput = userInput.split(" ");
-                String keyword = splitUserInput[0];
+                keyword = Keyword.valueOf(firstWord.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                keyword = Keyword.UNKNOWN;
+            }
 
-                if (keyword.equals("bye")) {
-                    break;
-                } else if (keyword.equals("list")) {
+            try {
+                switch (keyword) {
+                case BYE:
+                    return;
+                case LIST:
                     TooDoo.printList();
-                } else if (keyword.equals("mark")) {
-                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    break;
+                case MARK:
+                    index = Integer.parseInt(splitUserInput[1]) - 1;
                     TooDoo.mark(index);
-                } else if (keyword.equals("unmark")) {
-                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    break;
+                case UNMARK:
+                    index = Integer.parseInt(splitUserInput[1]) - 1;
                     TooDoo.unmark(index);
-                } else if (keyword.equals("todo")) {
+                    break;
+                case TODO:
                     TooDoo.addToDo(splitUserInput);
-                } else if (keyword.equals("deadline")) {
+                    break;
+                case DEADLINE:
                     TooDoo.addDeadline(splitUserInput);
-                } else if (keyword.equals("event")) {
+                    break;
+                case EVENT:
                     TooDoo.addEvent(splitUserInput);
-                } else if (keyword.equals("delete")) {
-                    int index = Integer.parseInt(splitUserInput[1]) - 1;
+                    break;
+                case DELETE:
+                    index = Integer.parseInt(splitUserInput[1]) - 1;
                     TooDoo.delete(index);
-                } else {
-                    throw new UnknownKeywordException(keyword);
+                    break;
+                case UNKNOWN:
+                    throw new UnknownKeywordException(firstWord);
                 }
             } catch (UnknownKeywordException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
