@@ -13,4 +13,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String getTaskString() {
+        return "E | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + this.from + " | " + this.to;
+    }
 }

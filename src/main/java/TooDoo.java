@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TooDoo {
 
@@ -7,6 +9,7 @@ public class TooDoo {
 
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    private static final String STORAGE_PATH = "./../storage/TooDooList.txt";
 
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int itemsInList = 0;
@@ -233,10 +236,23 @@ public class TooDoo {
         return eventOutput;
     }
 
+    public static void saveList() {
+        try {
+            FileWriter fw = new FileWriter(STORAGE_PATH);
+            for (int i = 0;i < itemsInList;i++) {
+                fw.write(taskList.get(i).getTaskString());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
 
         TooDoo.getWelcome();
         TooDoo.processUserInput();
+        TooDoo.saveList();
         TooDoo.getExit();
         userInputScanner.close();
     }
