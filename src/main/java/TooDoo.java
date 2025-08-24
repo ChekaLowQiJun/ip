@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;;
 
@@ -20,11 +17,14 @@ public class TooDoo {
     private static ArrayList<Task> taskList;
 
     private Storage storage;
+    private Ui ui;
 
     public TooDoo(String filePath) {
         storage = new Storage(filePath);
+        ui = new Ui();
     }
 
+    /* 
     public static void getWelcome() {
         System.out.println( HORIZONTAL_LINE + "How are you dooing! " 
                             + CHAT_BOT_NAME + " at your service!\n"
@@ -110,6 +110,7 @@ public class TooDoo {
         return splitUserInput[0];
     }
 
+    */
     public static void printList() {
         System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
 
@@ -141,39 +142,38 @@ public class TooDoo {
         taskList.remove(index);
     }
 
-    public static void addToDo(String[] splitUserInput) throws EmptyDescriptionException {
-        taskList.add(new ToDo(processToDoString(splitUserInput)));
+    public static void addToDo(String description) throws EmptyDescriptionException {
+        taskList.add(new ToDo(description));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList.get(taskList.size() - 1) + "\n" 
                             + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
     }
 
-    public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException, EmptyDeadlineException {
-        String[] processedDealineString = processDeadlineString(splitUserInput);
-        String description = processedDealineString[0];
-        LocalDateTime by = LocalDateTime.parse(processedDealineString[1], DATE_TIME_FORMATTER);
+    public static void addDeadline(String description, String by) throws EmptyDescriptionException, EmptyDeadlineException {
         
-        taskList.add(new Deadline(description, by));
+        LocalDateTime byLocalDateTime = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
+        
+        taskList.add(new Deadline(description, byLocalDateTime));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList.get(taskList.size() - 1) + "\n" 
                             + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
     }
 
-    public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
-        String[] processedEventString = processEventString(splitUserInput);
-        String description = processedEventString[0];
-        LocalDateTime from = LocalDateTime.parse(processedEventString[1], DATE_TIME_FORMATTER);
-        LocalDateTime to = LocalDateTime.parse(processedEventString[2], DATE_TIME_FORMATTER);
+    public static void addEvent(String description, String from, String to) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
 
-        taskList.add(new Event(description, from, to));
+        LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
+        LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
+
+        taskList.add(new Event(description, fromLocalDateTime, toLocalDateTime));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList.get(taskList.size() - 1) + "\n" 
                             + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
     }
 
+    /* 
     public static String processToDoString(String[] splitToDoString) throws EmptyDescriptionException {
         StringBuilder description = new StringBuilder();
         for (int i = 1;i < splitToDoString.length;i++) {
@@ -252,7 +252,6 @@ public class TooDoo {
         return eventOutput;
     }
 
-    /* 
     public static void saveList() {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH);
@@ -307,11 +306,11 @@ public class TooDoo {
 
         try {
             TooDoo toodoo = new TooDoo(STORAGE_PATH);
-            TooDoo.getWelcome();
+            toodoo.ui.getWelcome();
             taskList = toodoo.storage.loadList();
-            TooDoo.processUserInput();
+            toodoo.ui.processUserInput();
             toodoo.storage.saveList(taskList);
-            TooDoo.getExit();
+            toodoo.ui.getExit();
             userInputScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
