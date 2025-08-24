@@ -12,7 +12,7 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.getMonth() + " " + this.by.getDayOfMonth() + " " + this.by.getYear() + " " + this.by.getHour() + this.by.getMinute() + "H " + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.getMonth() + " " + this.by.getDayOfMonth() + " " + this.by.getYear() + " " + String.format("%02d:%02dH", this.by.getHour(), this.by.getMinute()) + ")";
     }
 
     @Override

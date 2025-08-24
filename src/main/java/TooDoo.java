@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;;
 
@@ -161,7 +160,12 @@ public class TooDoo {
     }
 
     public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
-        taskList.add(new Event(processEventString(splitUserInput)[0], processEventString(splitUserInput)[1], processEventString(splitUserInput)[2]));
+        String[] processedEventString = processEventString(splitUserInput);
+        String description = processedEventString[0];
+        LocalDateTime from = LocalDateTime.parse(processedEventString[1], DATE_TIME_FORMATTER);
+        LocalDateTime to = LocalDateTime.parse(processedEventString[2], DATE_TIME_FORMATTER);
+
+        taskList.add(new Event(description, from, to));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList.get(itemsInList) + "\n" 
                             + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
@@ -286,7 +290,7 @@ public class TooDoo {
         } else if (typeOfTask.equals("D")) {
             task = new Deadline(splitInput[2], LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER));
         } else {
-            task = new Event(splitInput[2], splitInput[3], splitInput[4]);
+            task = new Event(splitInput[2], LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER), LocalDateTime.parse(splitInput[4], DATE_TIME_FORMATTER));
         }
 
         if (isDone) {
