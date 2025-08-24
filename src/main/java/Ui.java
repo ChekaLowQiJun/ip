@@ -27,7 +27,7 @@ public class Ui {
         return userInputScanner.nextLine();
     }
 
-    public void processUserInput() {
+    public void processUserInput(TaskList taskList) {
          while (true) {
 
             Keyword keyword;
@@ -47,31 +47,31 @@ public class Ui {
                 case BYE:
                     return;
                 case LIST:
-                    TooDoo.printList();
+                    taskList.printList();
                     break;
                 case MARK:
                     index = Integer.parseInt(splitUserInput[1]) - 1;
-                    TooDoo.mark(index);
+                    taskList.mark(index);
                     break;
                 case UNMARK:
                     index = Integer.parseInt(splitUserInput[1]) - 1;
-                    TooDoo.unmark(index);
+                    taskList.unmark(index);
                     break;
                 case TODO:
                     String processedToDoString = this.processToDoString(splitUserInput);
-                    TooDoo.addToDo(processedToDoString);
+                    taskList.addToDo(processedToDoString);
                     break;
                 case DEADLINE:
                     String[] processedDeadlineString = this.processDeadlineString(splitUserInput);
-                    TooDoo.addDeadline(processedDeadlineString[0], processedDeadlineString[1]);
+                    taskList.addDeadline(processedDeadlineString[0], processedDeadlineString[1]);
                     break;
                 case EVENT:
                     String[] processedEventString = this.processEventString(splitUserInput);
-                    TooDoo.addEvent(processedEventString[0], processedEventString[1], processedEventString[2]);
+                    taskList.addEvent(processedEventString[0], processedEventString[1], processedEventString[2]);
                     break;
                 case DELETE:
                     index = Integer.parseInt(splitUserInput[1]) - 1;
-                    TooDoo.delete(index);
+                    taskList.delete(index);
                     break;
                 case UNKNOWN:
                     throw new UnknownKeywordException(firstWord);

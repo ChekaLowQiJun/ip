@@ -16,12 +16,14 @@ public class Storage {
         Storage.filePath = filePath;
     }
 
-    public void saveList(ArrayList<Task> taskList) {
+    public void saveList(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(Storage.filePath);
             StringBuilder tasks = new StringBuilder();
-            for (int i = 0;i < taskList.size();i++) {
-                tasks.append(taskList.get(i).getTaskString() + "\n");
+            ArrayList<Task> taskArrayList = taskList.getArrayList();
+
+            for (int i = 0;i < taskArrayList.size();i++) {
+                tasks.append(taskArrayList.get(i).getTaskString() + "\n");
             }
             fw.write(tasks.toString());
             fw.close();
