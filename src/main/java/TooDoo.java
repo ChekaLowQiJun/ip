@@ -1,9 +1,6 @@
-import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class TooDoo {
-
-    private static Scanner userInputScanner = new Scanner(System.in);
 
     private static final String STORAGE_PATH = "./../storage/TooDooList.txt";
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
@@ -24,14 +21,14 @@ public class TooDoo {
         }
     }
 
+    public void run() {
+        ui.getWelcome();
+        parser.processUserInput(this.taskList);
+        storage.saveList(this.taskList);
+        ui.getExit();
+    }
+
     public static void main(String[] args) {
-
-        TooDoo toodoo = new TooDoo(STORAGE_PATH);
-        toodoo.ui.getWelcome();
-        toodoo.parser.processUserInput(toodoo.taskList);
-        toodoo.storage.saveList(toodoo.taskList);
-        toodoo.ui.getExit();
-        userInputScanner.close();
-
+        new TooDoo(STORAGE_PATH);
     }
 }

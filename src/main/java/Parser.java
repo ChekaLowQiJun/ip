@@ -35,6 +35,7 @@ public class Parser {
             try {
                 switch (keyword) {
                 case BYE:
+                    userInputScanner.close();
                     return;
                 case LIST:
                     taskList.printList();
