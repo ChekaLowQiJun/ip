@@ -1,4 +1,4 @@
-package TooDoo;
+package TooDoo.tasks;
 public class ToDo extends Task {
     
     public ToDo(String description) {

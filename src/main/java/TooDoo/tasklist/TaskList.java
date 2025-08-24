@@ -1,4 +1,4 @@
-package TooDoo;
+package TooDoo.tasklist;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -7,6 +7,10 @@ import TooDoo.exceptions.EmptyDeadlineException;
 import TooDoo.exceptions.EmptyDescriptionException;
 import TooDoo.exceptions.EmptyFromException;
 import TooDoo.exceptions.EmptyToException;
+import TooDoo.tasks.Deadline;
+import TooDoo.tasks.Event;
+import TooDoo.tasks.Task;
+import TooDoo.tasks.ToDo;
 
 public class TaskList {
 

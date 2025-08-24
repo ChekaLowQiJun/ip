@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import TooDoo.Deadline;
-import TooDoo.Event;
-import TooDoo.Task;
-import TooDoo.TaskList;
-import TooDoo.ToDo;
+import TooDoo.tasklist.TaskList;
+import TooDoo.tasks.Deadline;
+import TooDoo.tasks.Event;
+import TooDoo.tasks.Task;
+import TooDoo.tasks.ToDo;
 
 public class Storage {
     

@@ -1,12 +1,14 @@
 package TooDoo;
 import java.io.FileNotFoundException;
 
+import TooDoo.parser.Parser;
 import TooDoo.storage.Storage;
+import TooDoo.tasklist.TaskList;
 import TooDoo.ui.Ui;
 
 public class TooDoo {
 
-    private static final String STORAGE_PATH = "./../../storage/TooDooList.txt";
+    private static final String STORAGE_PATH = "./../storage/TooDooList.txt";
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
     private Storage storage;

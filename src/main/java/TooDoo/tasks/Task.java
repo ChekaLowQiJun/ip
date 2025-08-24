@@ -1,4 +1,4 @@
-package TooDoo;
+package TooDoo.tasks;
 public class Task {
     private String description;
     private boolean isDone;
