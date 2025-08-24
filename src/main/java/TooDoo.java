@@ -11,12 +11,14 @@ public class TooDoo {
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
+    private Parser parser;
 
     public TooDoo(String filePath) {
         try {
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadList());
         ui = new Ui();
+        parser = new Parser();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -26,7 +28,7 @@ public class TooDoo {
 
         TooDoo toodoo = new TooDoo(STORAGE_PATH);
         toodoo.ui.getWelcome();
-        toodoo.ui.processUserInput(toodoo.taskList);
+        toodoo.parser.processUserInput(toodoo.taskList);
         toodoo.storage.saveList(toodoo.taskList);
         toodoo.ui.getExit();
         userInputScanner.close();
