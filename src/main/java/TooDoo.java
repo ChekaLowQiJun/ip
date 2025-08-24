@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;;
 
 public class TooDoo {
 
@@ -12,6 +15,7 @@ public class TooDoo {
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String STORAGE_PATH = "./../storage/TooDooList.txt";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -144,7 +148,11 @@ public class TooDoo {
     }
 
     public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException, EmptyDeadlineException {
-        taskList.add(new Deadline(processDeadlineString(splitUserInput)[0], processDeadlineString(splitUserInput)[1]));
+        String[] processedDealineString = processDeadlineString(splitUserInput);
+        String description = processedDealineString[0];
+        LocalDateTime by = LocalDateTime.parse(processedDealineString[1], DATE_TIME_FORMATTER);
+        
+        taskList.add(new Deadline(description, by));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
                             + taskList.get(itemsInList) + "\n" 
                             + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
@@ -276,7 +284,7 @@ public class TooDoo {
         if (typeOfTask.equals("T")) {
             task = new ToDo(splitInput[2]);
         } else if (typeOfTask.equals("D")) {
-            task = new Deadline(splitInput[2], splitInput[3]);
+            task = new Deadline(splitInput[2], LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER));
         } else {
             task = new Event(splitInput[2], splitInput[3], splitInput[4]);
         }
