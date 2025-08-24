@@ -17,8 +17,13 @@ public class TooDoo {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private static int itemsInList = 0;
+    private static ArrayList<Task> taskList;
+
+    private Storage storage;
+
+    public TooDoo(String filePath) {
+        storage = new Storage(filePath);
+    }
 
     public static void getWelcome() {
         System.out.println( HORIZONTAL_LINE + "How are you dooing! " 
@@ -108,7 +113,7 @@ public class TooDoo {
     public static void printList() {
         System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
 
-        for (int i = 0;i < itemsInList;i++) {
+        for (int i = 0;i < taskList.size();i++) {
             System.out.println((i + 1) + "." + taskList.get(i));
         }
 
@@ -131,19 +136,17 @@ public class TooDoo {
 
     public static void delete(int index) {
         System.out.println(HORIZONTAL_LINE + "I have removed this task from the list for you:\n" 
-                            + taskList.get(index) + "\n" + "You now have " + (itemsInList - 1) + " tasks remaining in the list.\n" 
+                            + taskList.get(index) + "\n" + "You now have " + (taskList.size() - 1) + " tasks remaining in the list.\n" 
                             + HORIZONTAL_LINE);
         taskList.remove(index);
-        itemsInList--;
     }
 
     public static void addToDo(String[] splitUserInput) throws EmptyDescriptionException {
         taskList.add(new ToDo(processToDoString(splitUserInput)));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList.get(itemsInList) + "\n" 
-                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + taskList.get(taskList.size() - 1) + "\n" 
+                            + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
-        itemsInList++;
     }
 
     public static void addDeadline(String[] splitUserInput) throws EmptyDescriptionException, EmptyDeadlineException {
@@ -153,10 +156,9 @@ public class TooDoo {
         
         taskList.add(new Deadline(description, by));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList.get(itemsInList) + "\n" 
-                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + taskList.get(taskList.size() - 1) + "\n" 
+                            + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
-        itemsInList++;
     }
 
     public static void addEvent(String[] splitUserInput) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
@@ -167,10 +169,9 @@ public class TooDoo {
 
         taskList.add(new Event(description, from, to));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                            + taskList.get(itemsInList) + "\n" 
-                            + "Now you have " + (itemsInList + 1) + " tasks in the list.\n"
+                            + taskList.get(taskList.size() - 1) + "\n" 
+                            + "Now you have " + (taskList.size()) + " tasks in the list.\n"
                             + HORIZONTAL_LINE);
-        itemsInList++;
     }
 
     public static String processToDoString(String[] splitToDoString) throws EmptyDescriptionException {
@@ -251,6 +252,7 @@ public class TooDoo {
         return eventOutput;
     }
 
+    /* 
     public static void saveList() {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH);
@@ -299,14 +301,20 @@ public class TooDoo {
 
         return task;
     }
+        */
 
     public static void main(String[] args) {
 
-        TooDoo.getWelcome();
-        TooDoo.loadList();
-        TooDoo.processUserInput();
-        TooDoo.saveList();
-        TooDoo.getExit();
-        userInputScanner.close();
+        try {
+            TooDoo toodoo = new TooDoo(STORAGE_PATH);
+            TooDoo.getWelcome();
+            taskList = toodoo.storage.loadList();
+            TooDoo.processUserInput();
+            toodoo.storage.saveList(taskList);
+            TooDoo.getExit();
+            userInputScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
