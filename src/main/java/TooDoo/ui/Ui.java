@@ -1,3 +1,4 @@
+package TooDoo.ui;
 public class Ui {
 
     private static final String CHAT_BOT_NAME = "TooDoo";

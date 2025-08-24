@@ -1,10 +1,12 @@
+package TooDoo.parser;
 import java.util.Scanner;
 
-import Exceptions.EmptyDeadlineException;
-import Exceptions.EmptyDescriptionException;
-import Exceptions.EmptyFromException;
-import Exceptions.EmptyToException;
-import Exceptions.UnknownKeywordException;
+import TooDoo.exceptions.EmptyDeadlineException;
+import TooDoo.exceptions.EmptyDescriptionException;
+import TooDoo.exceptions.EmptyFromException;
+import TooDoo.exceptions.EmptyToException;
+import TooDoo.exceptions.UnknownKeywordException;
+import TooDoo.tasklist.TaskList;
 
 public class Parser {
 

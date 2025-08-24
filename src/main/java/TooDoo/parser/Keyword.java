@@ -1,3 +1,5 @@
+package TooDoo.parser;
+
 public enum Keyword {
     BYE,
     LIST,

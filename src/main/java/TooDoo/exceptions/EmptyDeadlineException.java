@@ -1,4 +1,4 @@
-package Exceptions;
+package TooDoo.exceptions;
 
 public class EmptyDeadlineException extends Exception {
     public EmptyDeadlineException() {
