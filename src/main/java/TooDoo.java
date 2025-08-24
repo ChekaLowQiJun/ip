@@ -29,6 +29,6 @@ public class TooDoo {
     }
 
     public static void main(String[] args) {
-        new TooDoo(STORAGE_PATH);
+        new TooDoo(STORAGE_PATH).run();
     }
 }
