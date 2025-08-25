@@ -6,6 +6,9 @@ import TooDoo.storage.Storage;
 import TooDoo.tasklist.TaskList;
 import TooDoo.ui.Ui;
 
+/**
+ * The main entry point of the TooDoo chatbot application.
+ */
 public class TooDoo {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
@@ -17,6 +20,12 @@ public class TooDoo {
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Constructs the TooDoo chatbot by creating the Ui, Parser, Storage and TaskList object. 
+     * It also checks if the storage .txt file exists.
+     * 
+     * @param filePath The path to the storage .txt file.
+     */
     public TooDoo(String filePath) {
         try {
             ui = new Ui();
@@ -30,6 +39,9 @@ public class TooDoo {
         }
     }
 
+    /**
+     * The main flow of the chatbot application.
+     */
     public void run() {
         ui.getWelcome();
         parser.processUserInput(this.taskList);
@@ -37,6 +49,11 @@ public class TooDoo {
         ui.getExit();
     }
 
+    /**
+     * The creation of the TooDoo object and the running of the application.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         new TooDoo(STORAGE_PATH).run();
     }
