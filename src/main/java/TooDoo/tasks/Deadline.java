@@ -1,4 +1,5 @@
-package TooDoo.tasks;
+package toodoo.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +7,6 @@ import java.time.format.DateTimeFormatter;
  * The Deadline task that can be added to the task list.
  */
 public class Deadline extends Task {
-
     private LocalDateTime deadline;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -22,7 +22,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.getMonth() + " " + this.deadline.getDayOfMonth() + " " + this.deadline.getYear() + " " + String.format("%02d:%02dH", this.deadline.getHour(), this.deadline.getMinute()) + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " 
+                + deadline.getYear() + " " + String.format("%02d:%02dH", deadline.getHour(), deadline.getMinute()) + ")";
     }
 
     /**
@@ -32,6 +33,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskString() {
-        return "D | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + this.deadline.format(DATE_TIME_FORMATTER);
+        return "D | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + deadline.format(DATE_TIME_FORMATTER);
     }
 }

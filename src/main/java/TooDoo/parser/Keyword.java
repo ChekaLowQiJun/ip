@@ -1,4 +1,4 @@
-package TooDoo.parser;
+package toodoo.parser;
 
 /**
  * An enumeration of the Keywords the Parser expects from the user.

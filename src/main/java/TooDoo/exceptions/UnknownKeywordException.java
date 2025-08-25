@@ -1,4 +1,4 @@
-package TooDoo.exceptions;
+package toodoo.exceptions;
 
 /**
  * An Exception thrown when the Parser encounters an unknown Keyword.

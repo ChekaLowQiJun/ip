@@ -1,4 +1,4 @@
-package TooDoo.tasks;
+package toodoo.tasks;
 
 /**
  * A Task that has a description and a status.
@@ -18,7 +18,7 @@ public class Task {
      * @return The description of the Task.
      */
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -34,14 +34,14 @@ public class Task {
      * Marks the Task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Unmarks the Task.
      */
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Task {
      */
     @Override 
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + description;
     }
 
     /**
@@ -69,6 +69,6 @@ public class Task {
      * @return The status of the Task.
      */
     public boolean getIsDone() {
-        return this.isDone;
+        return isDone;
     }
 }

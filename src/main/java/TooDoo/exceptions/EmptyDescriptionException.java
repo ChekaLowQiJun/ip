@@ -1,4 +1,4 @@
-package TooDoo.exceptions;
+package toodoo.exceptions;
 
 /**
  * An Exception thrown when the user attempts to create a Task without specifying a description.

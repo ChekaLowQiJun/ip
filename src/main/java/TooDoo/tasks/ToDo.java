@@ -1,10 +1,9 @@
-package TooDoo.tasks;
+package toodoo.tasks;
 
 /**
  * The ToDo task that can be added to the task list.
  */
 public class ToDo extends Task {
-    
     public ToDo(String description) {
         super(description);
     }
