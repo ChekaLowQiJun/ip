@@ -24,7 +24,7 @@ public class ToDoTest {
         ToDo dummyTask = new ToDo("Dummy");
         assertEquals(false, dummyTask.getIsDone());
         dummyTask.markAsDone();
-        assertEquals(false, dummyTask.getIsDone());
+        assertEquals(true, dummyTask.getIsDone());
     }
 
     @Test
