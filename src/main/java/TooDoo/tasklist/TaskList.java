@@ -12,6 +12,9 @@ import TooDoo.tasks.Event;
 import TooDoo.tasks.Task;
 import TooDoo.tasks.ToDo;
 
+/**
+ * The TaskList is used by TooDoo to manage its task list.
+ */
 public class TaskList {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
@@ -26,6 +29,9 @@ public class TaskList {
         this.taskList = taskList;
     };
 
+    /**
+     * Prints the contents of the task list with proper formatting.
+     */
     public void printList() {
         System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
 
@@ -36,6 +42,11 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Marks a task in the task list at the specified index as done and prints the appropriate message.
+     * 
+     * @param index The index of the task in the task list that the user would like to mark.
+     */
     public void mark(int index) {
         taskList.get(index).markAsDone();
         System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
@@ -43,6 +54,11 @@ public class TaskList {
                             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Unmarks a task in the task list at the specified index and prints the appropriate message.
+     * 
+     * @param index The index of the task in the task list that the user would like to unmark.
+     */
     public void unmark(int index) {
         taskList.get(index).markAsNotDone();
         System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
@@ -50,6 +66,11 @@ public class TaskList {
                             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Deletes a task in the task list at the specified index and prints the appropriate message.
+     * 
+     * @param index The index of the task in the task list that the user would like to delete.
+     */
     public void delete(int index) {
         System.out.println(HORIZONTAL_LINE + "I have removed this task from the list for you:\n" 
                             + taskList.get(index) + "\n" + "You now have " + (taskList.size() - 1) + " tasks remaining in the list.\n" 
@@ -57,6 +78,12 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    /**
+     * Adds a ToDo to the task list.
+     * 
+     * @param description The description of the ToDo.
+     * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
+     */
     public void addToDo(String description) throws EmptyDescriptionException {
         taskList.add(new ToDo(description));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
@@ -65,9 +92,17 @@ public class TaskList {
                             + HORIZONTAL_LINE);
     }
 
-    public void addDeadline(String description, String by) throws EmptyDescriptionException, EmptyDeadlineException {
+    /**
+     * Adds a Deadline to the task list.
+     * 
+     * @param description The description of the Deadline.
+     * @param by The deadline of the Deadline.
+     * @throws EmptyDescriptionException If the description of the Deadline is an empty string.
+     * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
+     */
+    public void addDeadline(String description, String deadline) throws EmptyDescriptionException, EmptyDeadlineException {
         
-        LocalDateTime byLocalDateTime = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
+        LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
         
         taskList.add(new Deadline(description, byLocalDateTime));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
@@ -76,6 +111,16 @@ public class TaskList {
                             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Adds an Event to the task list.
+     * 
+     * @param description The description of the Event.
+     * @param from The from of the Event.
+     * @param to The to of the Event.
+     * @throws EmptyDescriptionException If the description of the Event is an empty string.
+     * @throws EmptyFromException If the from of the Event is an empty string.
+     * @throws EmptyToException If the to of the Event is an empty string.
+     */
     public void addEvent(String description, String from, String to) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
 
         LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
@@ -88,6 +133,11 @@ public class TaskList {
                             + HORIZONTAL_LINE);
     }
 
+    /**
+     * Returns the task list.
+     * 
+     * @return The task list of TooDoo.
+     */
     public ArrayList<Task> getArrayList() {
         return this.taskList;
     }
