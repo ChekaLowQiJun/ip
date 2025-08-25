@@ -1,13 +1,16 @@
 package TooDoo.ui;
+
+/**
+ * Handles interactions with the user.
+ */
 public class Ui {
 
     private static final String CHAT_BOT_NAME = "TooDoo";
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
-    public Ui() {
-
-    }
-
+    /**
+     * Prints the welcome message.
+     */
     public void getWelcome() {
         System.out.println( HORIZONTAL_LINE + "How are you dooing! " 
                             + CHAT_BOT_NAME + " at your service!\n"
@@ -15,6 +18,9 @@ public class Ui {
                             +  HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the exit message.
+     */
     public void getExit() {
         System.out.println(HORIZONTAL_LINE + "Toodles! Visit me again soon!\n" 
                             + HORIZONTAL_LINE);

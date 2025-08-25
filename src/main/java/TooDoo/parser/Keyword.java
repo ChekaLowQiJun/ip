@@ -1,5 +1,8 @@
 package TooDoo.parser;
 
+/**
+ * An enumeration of the Keywords the Parser expects from the user.
+ */
 public enum Keyword {
     BYE,
     LIST,

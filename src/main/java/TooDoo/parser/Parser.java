@@ -8,23 +8,38 @@ import TooDoo.exceptions.EmptyToException;
 import TooDoo.exceptions.UnknownKeywordException;
 import TooDoo.tasklist.TaskList;
 
+/**
+ * The Parser is used by TooDoo to receive and process the input by the user.
+ */
 public class Parser {
 
     private static Scanner userInputScanner = new Scanner(System.in);
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-    
-    public Parser() {
 
-    }
-
+    /**
+     * Returns a String representing the Keyword of the user's input.
+     * 
+     * @param splitUserInput An array containing the words in the user's input.
+     * @return The keyword (first word) of the user's input.
+     */
     public String getKeyWord(String[] splitUserInput) {
         return splitUserInput[0];
     }
 
+    /**
+     * Scans the next line of text from the user's input.
+     * 
+     * @return The next line of text from the user's input.
+     */
     public String getUserInput() {
         return userInputScanner.nextLine();
     }
 
+    /**
+     * Processes the user's input and carries out the appropriate actions.
+     * 
+     * @param taskList A TaskList object used to manage TooDoo's task list.
+     */
     public void processUserInput(TaskList taskList) {
          while (true) {
 
@@ -94,6 +109,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
+     * 
+     * @param splitToDoString An array containing the words from the user's input when the todo Keyword is encountered.
+     * @return The todo's description.
+     * @throws EmptyDescriptionException If the todo's description is an empty string.
+     */
     public String processToDoString(String[] splitToDoString) throws EmptyDescriptionException {
         StringBuilder description = new StringBuilder();
         for (int i = 1;i < splitToDoString.length;i++) {
@@ -107,6 +129,14 @@ public class Parser {
         return description.toString();
     }
 
+    /**
+     * Processes the user's input when the deadline Keyword is encountered and returns the deadline's description and deadline.
+     * 
+     * @param splitDeadlineString An array containing the words from the user's input when the deadline Keyword is encountered.
+     * @return An array containing the deadlines's description and deadline.
+     * @throws EmptyDescriptionException If the deadline's description is an empty string.
+     * @throws EmptyDeadlineException If the deadline's deadline is an empty string.
+     */
     public String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException, EmptyDeadlineException {
         String[] deadlineOutput = new String[2];
         StringBuilder description = new StringBuilder();
@@ -135,6 +165,15 @@ public class Parser {
         return deadlineOutput;
     }
 
+    /**
+     * Processes the user's input when the event Keyword is encountered and returns the event's description, from and to.
+     * 
+     * @param splitEventString An array containing the words from the user's input when the event Keyword is encountered.
+     * @return An array containing the event's description, from and to.
+     * @throws EmptyDescriptionException If the event's description is an empty string.
+     * @throws EmptyFromException If the event's from is an empty string.
+     * @throws EmptyToException If the event's to is an empty string.
+     */
     public String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
         String[] eventOutput = new String[3];
         StringBuilder description = new StringBuilder();
