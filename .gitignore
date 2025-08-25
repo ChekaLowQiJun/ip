@@ -16,7 +16,7 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-/src/main/storage/TooDooList.txt
+/storage/TooDooList.txt
 
 # Miscellaneous 
 *.class
