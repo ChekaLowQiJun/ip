@@ -4,6 +4,7 @@ import java.util.Scanner;
 import TooDoo.exceptions.EmptyDeadlineException;
 import TooDoo.exceptions.EmptyDescriptionException;
 import TooDoo.exceptions.EmptyFromException;
+import TooDoo.exceptions.EmptyRegexException;
 import TooDoo.exceptions.EmptyToException;
 import TooDoo.exceptions.UnknownKeywordException;
 import TooDoo.tasklist.TaskList;
@@ -72,6 +73,12 @@ public class Parser {
                     index = Integer.parseInt(splitUserInput[1]) - 1;
                     taskList.delete(index);
                     break;
+                case FIND:
+                    if (splitUserInput.length == 1) {
+                        throw new EmptyRegexException();
+                    }
+                    taskList.find(splitUserInput[1]);
+                    break;
                 case UNKNOWN:
                     throw new UnknownKeywordException(firstWord);
                 }
@@ -88,6 +95,9 @@ public class Parser {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             } catch (EmptyToException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
+            } catch (EmptyRegexException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             }
