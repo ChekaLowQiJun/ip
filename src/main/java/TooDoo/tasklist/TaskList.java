@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import TooDoo.exceptions.EmptyDeadlineException;
 import TooDoo.exceptions.EmptyDescriptionException;
 import TooDoo.exceptions.EmptyFromException;
+import TooDoo.exceptions.EmptyRegexException;
 import TooDoo.exceptions.EmptyToException;
 import TooDoo.tasks.Deadline;
 import TooDoo.tasks.Event;
@@ -140,6 +141,30 @@ public class TaskList {
      */
     public ArrayList<Task> getArrayList() {
         return this.taskList;
+    }
+
+    /**
+     * Prints the Tasks in the tasklist that contains the regex in their description.
+     * 
+     * @param regex A regular expression used to find Tasks by their description.
+     */
+    public void find(String regex) {
+        
+        ArrayList<Task> temporaryTaskList = new ArrayList<>();
+
+        for (int i=0;i < this.taskList.size();i++) {
+            if (this.taskList.get(i).getDescription().contains(regex)) {
+                temporaryTaskList.add(this.taskList.get(i));
+            }
+        }
+
+        System.out.println(HORIZONTAL_LINE + "These are what you are looking for right:");
+
+        for (int i = 0;i < temporaryTaskList.size();i++) {
+            System.out.println((i + 1) + "." + temporaryTaskList.get(i));
+        }
+
+        System.out.println(HORIZONTAL_LINE);
     }
 
 }
