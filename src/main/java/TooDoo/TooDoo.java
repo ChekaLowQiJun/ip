@@ -8,6 +8,7 @@ import TooDoo.ui.Ui;
 
 public class TooDoo {
 
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String STORAGE_PATH = "./src/main/storage/TooDooList.txt";
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
@@ -18,12 +19,14 @@ public class TooDoo {
 
     public TooDoo(String filePath) {
         try {
-        storage = new Storage(filePath);
-        taskList = new TaskList(storage.loadList());
-        ui = new Ui();
-        parser = new Parser();
+            ui = new Ui();
+            parser = new Parser();
+            storage = new Storage(filePath);
+            taskList = new TaskList(storage.loadList());
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println(HORIZONTAL_LINE + "It would seem that you have no existing task list! Starting a blank one for you now :) \n"
+                    + HORIZONTAL_LINE);
+            taskList = new TaskList();
         }
     }
 

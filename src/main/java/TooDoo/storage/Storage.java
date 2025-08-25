@@ -17,6 +17,7 @@ import TooDoo.tasks.ToDo;
 public class Storage {
     
     private static String filePath;
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String filePath) {
@@ -25,17 +26,23 @@ public class Storage {
 
     public void saveList(TaskList taskList) {
         try {
-            FileWriter fw = new FileWriter(Storage.filePath);
-            StringBuilder tasks = new StringBuilder();
-            ArrayList<Task> taskArrayList = taskList.getArrayList();
+            if (new File(Storage.filePath).exists()) {
+                FileWriter fw = new FileWriter(Storage.filePath);
+                StringBuilder tasks = new StringBuilder();
+                ArrayList<Task> taskArrayList = taskList.getArrayList();
 
-            for (int i = 0;i < taskArrayList.size();i++) {
-                tasks.append(taskArrayList.get(i).getTaskString() + "\n");
+                for (int i = 0;i < taskArrayList.size();i++) {
+                    tasks.append(taskArrayList.get(i).getTaskString()).append("\n");
+                }
+                fw.write(tasks.toString());
+                fw.close();
+            } else {
+                System.out.print(HORIZONTAL_LINE + "Oh no unfortunately there was an error with saving your Task List...apologies! \n"
+                        + HORIZONTAL_LINE);
             }
-            fw.write(tasks.toString());
-            fw.close();
+
         } catch (IOException e) {
-            System.out.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
