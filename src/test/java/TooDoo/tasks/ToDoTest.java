@@ -19,5 +19,22 @@ public class ToDoTest {
         assertEquals("T |   | Dummy To Do", new ToDo("Dummy To Do").getTaskString());
     }
 
+    @Test
+    public void markTest() {
+        ToDo dummyTask = new ToDo("Dummy");
+        assertEquals(false, dummyTask.getIsDone());
+        dummyTask.markAsDone();
+        assertEquals(false, dummyTask.getIsDone());
+    }
+
+    @Test
+    public void unmarkTest() {
+        ToDo dummyTask = new ToDo("Dummy");
+        dummyTask.markAsDone();
+        assertEquals(true, dummyTask.getIsDone());
+        dummyTask.markAsNotDone();
+        assertEquals(false, dummyTask.getIsDone());
+    }
+
 }
 
