@@ -14,16 +14,29 @@ import TooDoo.tasks.Event;
 import TooDoo.tasks.Task;
 import TooDoo.tasks.ToDo;
 
+/**
+ * The Storage is used by TooDoo to load and make local saves of the task list.
+ */
 public class Storage {
     
     private static String filePath;
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs the Storage object using the filePath of the existing task list.
+     * 
+     * @param filePath File path to the existing .txt file containing the task list.
+     */
     public Storage(String filePath) {
         Storage.filePath = filePath;
     }
 
+    /**
+     * Saves the current task list and writes to the .txt file specified in the constructor if the file exists.
+     * 
+     * @param taskList A TaskList object used to manage TooDoo's task list.
+     */
     public void saveList(TaskList taskList) {
         try {
             if (new File(Storage.filePath).exists()) {
@@ -46,6 +59,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the .txt file specified in the constructor if it exists and returns it.
+     * 
+     * @return The task list from the .txt file.
+     * @throws FileNotFoundException If the file specified in the constructor does not exist.
+     */
     public ArrayList<Task> loadList() throws FileNotFoundException {
         
         ArrayList<Task> taskList = new ArrayList<>();
@@ -60,6 +79,12 @@ public class Storage {
 
     }
 
+    /**
+     * Processes the lines of text from the .txt file return the corresponding task with the appropriate status.
+     * 
+     * @param input A string representing a line from the .txt file. 
+     * @return The corresponding task with the appropriate status.
+     */
     public static Task processStorageInput(String input) {
         String[] splitInput = input.split(" \\| ");
         String typeOfTask = splitInput[0];
