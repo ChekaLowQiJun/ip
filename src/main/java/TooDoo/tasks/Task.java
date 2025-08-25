@@ -32,4 +32,8 @@ public class Task {
     public String getTaskString() {
         return "Task | " + this.getStatusIcon() + " | " + this.getDescription();
     }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
 }
