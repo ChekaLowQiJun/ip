@@ -1,4 +1,4 @@
-package TooDoo.exceptions;
+package toodoo.exceptions;
 
 public class UnknownKeywordException extends Exception {
     public UnknownKeywordException(String message) {

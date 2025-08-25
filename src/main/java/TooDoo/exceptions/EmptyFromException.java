@@ -1,4 +1,4 @@
-package TooDoo.exceptions;
+package toodoo.exceptions;
 
 public class EmptyFromException extends Exception {
     public EmptyFromException() {

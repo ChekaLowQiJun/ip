@@ -1,4 +1,4 @@
-package TooDoo.parser;
+package toodoo.parser;
 
 public enum Keyword {
     BYE,

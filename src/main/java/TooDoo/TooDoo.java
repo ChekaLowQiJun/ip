@@ -1,13 +1,13 @@
-package TooDoo;
+package toodoo;
+
 import java.io.FileNotFoundException;
 
-import TooDoo.parser.Parser;
-import TooDoo.storage.Storage;
-import TooDoo.tasklist.TaskList;
-import TooDoo.ui.Ui;
+import toodoo.parser.Parser;
+import toodoo.storage.Storage;
+import toodoo.tasklist.TaskList;
+import toodoo.ui.Ui;
 
 public class TooDoo {
-
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String STORAGE_PATH = "./storage/TooDooList.txt";
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
@@ -24,7 +24,8 @@ public class TooDoo {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.loadList());
         } catch (FileNotFoundException e) {
-            System.out.println(HORIZONTAL_LINE + "It would seem that you have no existing task list! Starting a blank one for you now :) \n"
+            System.out.println(HORIZONTAL_LINE 
+                    + "It would seem that you have no existing task list! Starting a blank one for you now :) \n"
                     + HORIZONTAL_LINE);
             taskList = new TaskList();
         }
@@ -32,8 +33,8 @@ public class TooDoo {
 
     public void run() {
         ui.getWelcome();
-        parser.processUserInput(this.taskList);
-        storage.saveList(this.taskList);
+        parser.processUserInput(taskList);
+        storage.saveList(taskList);
         ui.getExit();
     }
 

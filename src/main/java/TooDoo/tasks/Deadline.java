@@ -1,23 +1,24 @@
-package TooDoo.tasks;
+package toodoo.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-
-    private LocalDateTime by;
+    private LocalDateTime deadline;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Deadline(String decscription, LocalDateTime by) {
+    public Deadline(String decscription, LocalDateTime deadline) {
         super(decscription);
-        this.by = by;
+        this.deadline = deadline;
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.getMonth() + " " + this.by.getDayOfMonth() + " " + this.by.getYear() + " " + String.format("%02d:%02dH", this.by.getHour(), this.by.getMinute()) + ")";
+        return "[D]" + super.toString() + " (by: " + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " 
+                + deadline.getYear() + " " + String.format("%02d:%02dH", deadline.getHour(), deadline.getMinute()) + ")";
     }
 
     @Override
     public String getTaskString() {
-        return "D | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + this.by.format(DATE_TIME_FORMATTER);
+        return "D | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + deadline.format(DATE_TIME_FORMATTER);
     }
 }

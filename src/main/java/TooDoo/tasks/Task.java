@@ -1,4 +1,5 @@
-package TooDoo.tasks;
+package toodoo.tasks;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -9,7 +10,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public String getStatusIcon() {
@@ -17,16 +18,16 @@ public class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     @Override 
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + description;
     }
 
     public String getTaskString() {
@@ -34,6 +35,6 @@ public class Task {
     }
 
     public boolean getIsDone() {
-        return this.isDone;
+        return isDone;
     }
 }

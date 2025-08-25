@@ -1,21 +1,18 @@
-package TooDoo.parser;
+package toodoo.parser;
+
 import java.util.Scanner;
 
-import TooDoo.exceptions.EmptyDeadlineException;
-import TooDoo.exceptions.EmptyDescriptionException;
-import TooDoo.exceptions.EmptyFromException;
-import TooDoo.exceptions.EmptyToException;
-import TooDoo.exceptions.UnknownKeywordException;
-import TooDoo.tasklist.TaskList;
+import toodoo.exceptions.EmptyDeadlineException;
+import toodoo.exceptions.EmptyDescriptionException;
+import toodoo.exceptions.EmptyFromException;
+import toodoo.exceptions.EmptyToException;
+import toodoo.exceptions.UnknownKeywordException;
+import toodoo.tasklist.TaskList;
 
 public class Parser {
-
     private static Scanner userInputScanner = new Scanner(System.in);
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     
-    public Parser() {
-
-    }
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     public String getKeyWord(String[] splitUserInput) {
         return splitUserInput[0];
@@ -27,7 +24,6 @@ public class Parser {
 
     public void processUserInput(TaskList taskList) {
          while (true) {
-
             Keyword keyword;
             String userInput = this.getUserInput();
             String[] splitUserInput = userInput.split(" ");
@@ -76,27 +72,22 @@ public class Parser {
                     throw new UnknownKeywordException(firstWord);
                 }
             } catch (UnknownKeywordException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
             } catch (EmptyDescriptionException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
             } catch (EmptyDeadlineException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
             } catch (EmptyFromException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
             } catch (EmptyToException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
             }
         }
     }
 
     public String processToDoString(String[] splitToDoString) throws EmptyDescriptionException {
         StringBuilder description = new StringBuilder();
-        for (int i = 1;i < splitToDoString.length;i++) {
+        for (int i = 1; i < splitToDoString.length; i++) {
             description.append(splitToDoString[i] + " ");
         }
 
@@ -107,7 +98,8 @@ public class Parser {
         return description.toString();
     }
 
-    public String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException, EmptyDeadlineException {
+    public String[] processDeadlineString(String[] splitDeadlineString) throws EmptyDescriptionException, 
+            EmptyDeadlineException {
         String[] deadlineOutput = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
@@ -135,22 +127,23 @@ public class Parser {
         return deadlineOutput;
     }
 
-    public String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, EmptyFromException, EmptyToException {
+    public String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, 
+            EmptyFromException, EmptyToException {
         String[] eventOutput = new String[3];
         StringBuilder description = new StringBuilder();
         StringBuilder from = new StringBuilder();
         StringBuilder to = new StringBuilder();
-        boolean beforeFrom = true;
-        boolean beforeTo = true;
+        boolean isBeforeFrom = true;
+        boolean isBeforeTo = true;
 
-        for (int i = 1;i < splitEventString.length;i++) {
+        for (int i = 1; i < splitEventString.length; i++) {
             if (splitEventString[i].equals("/from")) {
-                beforeFrom = false;
+                isBeforeFrom = false;
             } else if (splitEventString[i].equals("/to")) {
-                beforeTo = false;
-            } else if (beforeFrom) {
+                isBeforeTo = false;
+            } else if (isBeforeFrom) {
                 description.append(splitEventString[i] + " ");
-            } else if (beforeTo) {
+            } else if (isBeforeTo) {
                 from.append(splitEventString[i] + " ");
             }else {
                 to.append(splitEventString[i] + " ");
