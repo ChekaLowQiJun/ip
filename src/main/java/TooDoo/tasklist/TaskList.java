@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import TooDoo.exceptions.EmptyDeadlineException;
 import TooDoo.exceptions.EmptyDescriptionException;
 import TooDoo.exceptions.EmptyFromException;
-import TooDoo.exceptions.EmptyRegexException;
 import TooDoo.exceptions.EmptyToException;
 import TooDoo.tasks.Deadline;
 import TooDoo.tasks.Event;
