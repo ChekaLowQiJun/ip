@@ -10,6 +10,8 @@ import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.IndexDoesNotExistException;
+import toodoo.exceptions.TaskAlreadyMarkedException;
+import toodoo.exceptions.TaskAlreadyUnmarkedException;
 import toodoo.exceptions.DateTimeConflictException;
 
 import toodoo.tasks.Deadline;
@@ -52,10 +54,15 @@ public class TaskList {
      * 
      * @param index The index of the task in the task list that the user would like to mark.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
+     * @throws TaskAlreadyMarkedException If the task specified is already done.
      */
-    public void mark(int index) throws IndexDoesNotExistException {
+    public void mark(int index) throws IndexDoesNotExistException, TaskAlreadyMarkedException {
         if (index > taskList.size() - 1) {
             throw new IndexDoesNotExistException();
+        }
+
+        if (taskList.get(index).getIsDone()) {
+            throw new TaskAlreadyMarkedException();
         }
 
         taskList.get(index).markAsDone();
@@ -69,10 +76,15 @@ public class TaskList {
      * 
      * @param index The index of the task in the task list that the user would like to unmark.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
+     * @throws TaskAlreadyUnmarkedException If the task specified is already marked as not done.
      */
-    public void unmark(int index) throws IndexDoesNotExistException {
+    public void unmark(int index) throws IndexDoesNotExistException, TaskAlreadyUnmarkedException {
         if (index > taskList.size() - 1) {
             throw new IndexDoesNotExistException();
+        }
+
+        if (!taskList.get(index).getIsDone()) {
+            throw new TaskAlreadyUnmarkedException();
         }
 
         taskList.get(index).markAsNotDone();

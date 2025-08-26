@@ -9,6 +9,8 @@ import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyIndexException;
 import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.IndexDoesNotExistException;
+import toodoo.exceptions.TaskAlreadyMarkedException;
+import toodoo.exceptions.TaskAlreadyUnmarkedException;
 import toodoo.exceptions.UnknownKeywordException;
 import toodoo.exceptions.EmptyRegexException;
 
@@ -131,6 +133,12 @@ public class Parser {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             } catch (IndexDoesNotExistException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
+            } catch (TaskAlreadyMarkedException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
+            } catch (TaskAlreadyUnmarkedException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             }
