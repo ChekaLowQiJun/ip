@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("TooDoo.TooDoo")
+    mainClass.set("toodoo.TooDoo")
 }
 
 shadowJar {
