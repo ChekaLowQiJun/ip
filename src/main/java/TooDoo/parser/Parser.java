@@ -135,6 +135,8 @@ public class Parser {
                 ui.printMessage(e.getMessage());
             } catch (TaskAlreadyUnmarkedException e) {
                 ui.printMessage(e.getMessage());
+            } catch (NumberFormatException e) {
+                ui.printMessage("Please provide a valid integer for the task number :(");
             }
         }
     }

@@ -2,6 +2,7 @@ package toodoo;
 
 import java.io.FileNotFoundException;
 
+import toodoo.exceptions.StorageFormatException;
 import toodoo.parser.Parser;
 import toodoo.storage.Storage;
 import toodoo.tasklist.TaskList;
@@ -11,7 +12,6 @@ import toodoo.ui.Ui;
  * The main entry point of the TooDoo chatbot application.
  */
 public class TooDoo {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String STORAGE_PATH = "./storage/TooDooList.txt";
     // private static final String STORAGE_PATH = "./../src/main/storage/TooDooList.txt"; // For testing
 
@@ -33,9 +33,10 @@ public class TooDoo {
             storage = new Storage(filePath);
             taskList = new TaskList(storage.loadList());
         } catch (FileNotFoundException e) {
-            System.out.println(HORIZONTAL_LINE 
-                    + "It would seem that you have no existing task list! Starting a blank one for you now :) \n"
-                    + HORIZONTAL_LINE);
+            ui.printMessage("It would seem that you have no existing task list! Starting a blank one for you now :)");
+            taskList = new TaskList();
+        } catch (StorageFormatException e) {
+            ui.printMessage(e.getMessage());
             taskList = new TaskList();
         }
     }

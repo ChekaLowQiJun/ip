@@ -2,6 +2,7 @@ package toodoo.tasklist;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 
@@ -134,13 +135,20 @@ public class TaskList {
      * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
      */
     public void addDeadline(String description, String deadline) throws EmptyDescriptionException, EmptyDeadlineException {
-        LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
-        
-        taskList.add(new Deadline(description, byLocalDateTime));
-        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                + taskList.get(taskList.size() - 1) + "\n" 
-                + "Now you have " + (taskList.size()) + " tasks in the list.\n"
-                + HORIZONTAL_LINE);
+        try {
+            LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
+            
+            taskList.add(new Deadline(description, byLocalDateTime));
+            System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
+                    + taskList.get(taskList.size() - 1) + "\n" 
+                    + "Now you have " + (taskList.size()) + " tasks in the list.\n"
+                    + HORIZONTAL_LINE);
+        } catch (DateTimeParseException e) {
+            System.out.println(HORIZONTAL_LINE 
+                    + "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
+                    + " to specify a date that exists \n"
+                    + HORIZONTAL_LINE);
+        }
     }
 
     /**
@@ -156,18 +164,25 @@ public class TaskList {
      */
     public void addEvent(String description, String from, String to) throws EmptyDescriptionException, 
             EmptyFromException, EmptyToException, DateTimeConflictException {
-        LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
-        LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
+        try {
+            LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
+            LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
 
-        if (toLocalDateTime.isBefore(fromLocalDateTime)) {
-            throw new DateTimeConflictException();
+            if (toLocalDateTime.isBefore(fromLocalDateTime)) {
+                throw new DateTimeConflictException();
+            }
+
+            taskList.add(new Event(description, fromLocalDateTime, toLocalDateTime));
+            System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
+                    + taskList.get(taskList.size() - 1) + "\n" 
+                    + "Now you have " + (taskList.size()) + " tasks in the list.\n"
+                    + HORIZONTAL_LINE);
+        }  catch (DateTimeParseException e) {
+            System.out.println(HORIZONTAL_LINE 
+                    + "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
+                    + " to specify a date that exists \n"
+                    + HORIZONTAL_LINE);
         }
-
-        taskList.add(new Event(description, fromLocalDateTime, toLocalDateTime));
-        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                + taskList.get(taskList.size() - 1) + "\n" 
-                + "Now you have " + (taskList.size()) + " tasks in the list.\n"
-                + HORIZONTAL_LINE);
     }
 
     /**

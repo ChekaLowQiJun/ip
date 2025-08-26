@@ -17,6 +17,8 @@ import toodoo.tasks.Event;
 import toodoo.tasks.Task;
 import toodoo.tasks.ToDo;
 
+import toodoo.exceptions.StorageFormatException;
+
 /**
  * The Storage is used by TooDoo to load and make local saves of the task list.
  */
@@ -67,7 +69,7 @@ public class Storage {
      * @return The task list from the .txt file.
      * @throws FileNotFoundException If the file specified in the constructor does not exist.
      */
-    public ArrayList<Task> loadList() throws FileNotFoundException {
+    public ArrayList<Task> loadList() throws FileNotFoundException, StorageFormatException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         File taskListFile = new File(Storage.filePath); 
@@ -88,7 +90,15 @@ public class Storage {
      * @param input A string representing a line from the .txt file. 
      * @return The corresponding task with the appropriate status.
      */
-    public static Task processStorageInput(String input) {
+    public static Task processStorageInput(String input) throws StorageFormatException {
+        String regexT = "^T \\|   \\| .+?$";
+        String regexD = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+        String regexE = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+
+        if (!input.matches(regexT) && !input.matches(regexD) && !input.matches(regexE)) {
+            throw new StorageFormatException();
+        }
+
         String[] splitInput = input.split(" \\| ");
         String typeOfTask = splitInput[0];
         boolean isDone = splitInput[1].equals("X") ? true : false;
