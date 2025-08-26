@@ -15,6 +15,7 @@ import toodoo.exceptions.UnknownKeywordException;
 import toodoo.exceptions.EmptyRegexException;
 
 import toodoo.tasklist.TaskList;
+import toodoo.ui.Ui;
 
 /**
  * The Parser is used by TooDoo to receive and process the input by the user.
@@ -22,7 +23,7 @@ import toodoo.tasklist.TaskList;
 public class Parser {
     private static Scanner userInputScanner = new Scanner(System.in);
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    private static Ui ui = new Ui();
 
     /**
      * Returns a String representing the Keyword of the user's input.
@@ -113,34 +114,27 @@ public class Parser {
                     throw new UnknownKeywordException(firstWord);
                 }
             } catch (UnknownKeywordException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyDescriptionException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyDeadlineException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyFromException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyToException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyRegexException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (EmptyIndexException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (DateTimeConflictException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (IndexDoesNotExistException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (TaskAlreadyMarkedException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             } catch (TaskAlreadyUnmarkedException e) {
-                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
-                                    + HORIZONTAL_LINE);
+                ui.printMessage(e.getMessage());
             }
         }
     }

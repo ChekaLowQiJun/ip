@@ -24,4 +24,14 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE + "Toodles! Visit me again soon!\n" 
                 + HORIZONTAL_LINE);
     }
+
+    /**
+     * Prints a message with horizontal lines above and below the message.
+     * 
+     * @param message The message to be printed.
+     */
+    public void printMessage(String message) {
+        System.out.println(HORIZONTAL_LINE + message + "\n" 
+                                    + HORIZONTAL_LINE);
+    }
 }
