@@ -2,12 +2,15 @@ package toodoo.parser;
 
 import java.util.Scanner;
 
+import toodoo.exceptions.DateTimeConflictException;
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
+import toodoo.exceptions.EmptyIndexException;
 import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.UnknownKeywordException;
 import toodoo.exceptions.EmptyRegexException;
+
 import toodoo.tasklist.TaskList;
 
 /**
@@ -65,10 +68,16 @@ public class Parser {
                     taskList.printList();
                     break;
                 case MARK:
+                    if (splitUserInput.length == 1) {
+                        throw new EmptyIndexException();
+                    }
                     index = Integer.parseInt(splitUserInput[1]) - 1;
                     taskList.mark(index);
                     break;
                 case UNMARK:
+                    if (splitUserInput.length == 1) {
+                        throw new EmptyIndexException();
+                    }
                     index = Integer.parseInt(splitUserInput[1]) - 1;
                     taskList.unmark(index);
                     break;
@@ -85,6 +94,9 @@ public class Parser {
                     taskList.addEvent(processedEventString[0], processedEventString[1], processedEventString[2]);
                     break;
                 case DELETE:
+                    if (splitUserInput.length == 1) {
+                        throw new EmptyIndexException();
+                    }
                     index = Integer.parseInt(splitUserInput[1]) - 1;
                     taskList.delete(index);
                     break;
@@ -109,6 +121,12 @@ public class Parser {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             } catch (EmptyRegexException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
+            } catch (EmptyIndexException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
+            } catch (DateTimeConflictException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
             }
@@ -182,7 +200,7 @@ public class Parser {
      * @throws EmptyToException If the event's to is an empty string.
      */
     public String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, 
-            EmptyFromException, EmptyToException {
+            EmptyFromException, EmptyToException, DateTimeConflictException {
         String[] eventOutput = new String[3];
         StringBuilder description = new StringBuilder();
         StringBuilder from = new StringBuilder();

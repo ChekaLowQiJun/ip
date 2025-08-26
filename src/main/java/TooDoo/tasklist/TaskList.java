@@ -9,6 +9,7 @@ import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyToException;
+import toodoo.exceptions.DateTimeConflictException;
 
 import toodoo.tasks.Deadline;
 import toodoo.tasks.Event;
@@ -125,9 +126,13 @@ public class TaskList {
      * @throws EmptyToException If the to of the Event is an empty string.
      */
     public void addEvent(String description, String from, String to) throws EmptyDescriptionException, 
-            EmptyFromException, EmptyToException {
+            EmptyFromException, EmptyToException, DateTimeConflictException {
         LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
         LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
+
+        if (toLocalDateTime.isBefore(fromLocalDateTime)) {
+            throw new DateTimeConflictException();
+        }
 
         taskList.add(new Event(description, fromLocalDateTime, toLocalDateTime));
         System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
