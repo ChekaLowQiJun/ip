@@ -9,6 +9,7 @@ import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyToException;
+import toodoo.exceptions.IndexDoesNotExistException;
 import toodoo.exceptions.DateTimeConflictException;
 
 import toodoo.tasks.Deadline;
@@ -50,8 +51,13 @@ public class TaskList {
      * Marks a task in the task list at the specified index as done and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to mark.
+     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      */
-    public void mark(int index) {
+    public void mark(int index) throws IndexDoesNotExistException {
+        if (index > taskList.size() - 1) {
+            throw new IndexDoesNotExistException();
+        }
+
         taskList.get(index).markAsDone();
         System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
                 + taskList.get(index) + "\n" 
@@ -62,8 +68,13 @@ public class TaskList {
      * Unmarks a task in the task list at the specified index and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to unmark.
+     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      */
-    public void unmark(int index) {
+    public void unmark(int index) throws IndexDoesNotExistException {
+        if (index > taskList.size() - 1) {
+            throw new IndexDoesNotExistException();
+        }
+
         taskList.get(index).markAsNotDone();
         System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
                 + taskList.get(index) + "\n" 
@@ -74,8 +85,13 @@ public class TaskList {
      * Deletes a task in the task list at the specified index and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to delete.
+     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      */
-    public void delete(int index) {
+    public void delete(int index) throws IndexDoesNotExistException {
+        if (index > taskList.size() - 1) {
+            throw new IndexDoesNotExistException();
+        }
+
         System.out.println(HORIZONTAL_LINE + "I have removed this task from the list for you:\n" 
                 + taskList.get(index) + "\n" + "You now have " + (taskList.size() - 1) 
                 + " tasks remaining in the list.\n" 
@@ -124,6 +140,7 @@ public class TaskList {
      * @throws EmptyDescriptionException If the description of the Event is an empty string.
      * @throws EmptyFromException If the from of the Event is an empty string.
      * @throws EmptyToException If the to of the Event is an empty string.
+     * @throws DateTimeConflictException If the to is before the from.
      */
     public void addEvent(String description, String from, String to) throws EmptyDescriptionException, 
             EmptyFromException, EmptyToException, DateTimeConflictException {

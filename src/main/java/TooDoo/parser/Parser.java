@@ -8,6 +8,7 @@ import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyIndexException;
 import toodoo.exceptions.EmptyToException;
+import toodoo.exceptions.IndexDoesNotExistException;
 import toodoo.exceptions.UnknownKeywordException;
 import toodoo.exceptions.EmptyRegexException;
 
@@ -129,6 +130,9 @@ public class Parser {
             } catch (DateTimeConflictException e) {
                 System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
                                     + HORIZONTAL_LINE);
+            } catch (IndexDoesNotExistException e) {
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + "\n" 
+                                    + HORIZONTAL_LINE);
             }
         }
     }
@@ -168,7 +172,7 @@ public class Parser {
         StringBuilder deadline = new StringBuilder();
         boolean beforeDeadline = true;
 
-        for (int i = 1;i < splitDeadlineString.length;i++) {
+        for (int i = 1; i < splitDeadlineString.length; i++) {
             if (splitDeadlineString[i].equals("/by")) {
                 beforeDeadline = false;
             } else if (beforeDeadline) {
@@ -198,6 +202,7 @@ public class Parser {
      * @throws EmptyDescriptionException If the event's description is an empty string.
      * @throws EmptyFromException If the event's from is an empty string.
      * @throws EmptyToException If the event's to is an empty string.
+     * @throws DateTimeConflictException If the to is before the from.
      */
     public String[] processEventString(String[] splitEventString) throws EmptyDescriptionException, 
             EmptyFromException, EmptyToException, DateTimeConflictException {
