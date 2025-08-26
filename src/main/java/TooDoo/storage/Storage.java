@@ -68,6 +68,7 @@ public class Storage {
      * 
      * @return The task list from the .txt file.
      * @throws FileNotFoundException If the file specified in the constructor does not exist.
+     * @throws StorageFormatException If the .txt file is not in the expected format.
      */
     public ArrayList<Task> loadList() throws FileNotFoundException, StorageFormatException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -89,6 +90,7 @@ public class Storage {
      * 
      * @param input A string representing a line from the .txt file. 
      * @return The corresponding task with the appropriate status.
+     * @throws StorageFormatException If the .txt file is not in the expected format.
      */
     public static Task processStorageInput(String input) throws StorageFormatException {
         String regexT = "^T \\|   \\| .+?$";
