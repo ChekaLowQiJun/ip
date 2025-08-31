@@ -1,5 +1,9 @@
 package toodoo.parser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import toodoo.exceptions.DateTimeConflictException;
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
@@ -122,21 +126,20 @@ public class Parser {
     /**
      * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
      * 
-     * @param toDoStrings An array containing the words from the user's input when the todo Keyword is encountered.
+     * @param toDoParts An array containing the words from the user's input when the todo Keyword is encountered.
      * @return The todo's description.
      * @throws EmptyDescriptionException If the todo's description is an empty string.
      */
-    public String processToDoString(String[] toDoStrings) throws EmptyDescriptionException {
-        StringBuilder description = new StringBuilder();
-        for (int i = 1; i < toDoStrings.length; i++) {
-            description.append(toDoStrings[i] + " ");
-        }
+    public String processToDoString(String... toDoParts) throws EmptyDescriptionException {
 
-        if (description.length() == 0) {
+        if (toDoParts.length == 1) {
             throw new EmptyDescriptionException();
         }
 
-        return description.toString();
+        List<String> list = new ArrayList<>(Arrays.asList(toDoParts));
+        list.remove(0);
+
+        return String.join(" ", list);
     }
 
     /**
