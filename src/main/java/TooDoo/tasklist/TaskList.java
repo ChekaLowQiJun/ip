@@ -24,106 +24,97 @@ import toodoo.tasks.ToDo;
  * The TaskList is used by TooDoo to manage its task list.
  */
 public class TaskList {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        taskList = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    /**
-     * Prints the contents of the task list with proper formatting.
-     */
-    public void printList() {
-        System.out.println(HORIZONTAL_LINE + "Presenting too you your task list:");
-
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i));
-        }
-
-        System.out.println(HORIZONTAL_LINE);
+        this.tasks = taskList;
     }
 
     /**
      * Marks a task in the task list at the specified index as done and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to mark.
+     * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      * @throws TaskAlreadyMarkedException If the task specified is already done.
      */
-    public void mark(int index) throws IndexDoesNotExistException, TaskAlreadyMarkedException {
-        if (index > taskList.size() - 1) {
+    public String mark(int index) throws IndexDoesNotExistException, TaskAlreadyMarkedException {
+        if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
 
-        if (taskList.get(index).getIsDone()) {
+        if (tasks.get(index).getIsDone()) {
             throw new TaskAlreadyMarkedException();
         }
 
-        taskList.get(index).markAsDone();
-        System.out.println(HORIZONTAL_LINE + "Good Job! You have completed this task:\n" 
-                + taskList.get(index) + "\n" 
-                + HORIZONTAL_LINE);
+        tasks.get(index).markAsDone();
+
+        return "Good Job! You have completed this task:\n" 
+                + tasks.get(index);
     }
 
     /**
      * Unmarks a task in the task list at the specified index and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to unmark.
+     * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      * @throws TaskAlreadyUnmarkedException If the task specified is already marked as not done.
      */
-    public void unmark(int index) throws IndexDoesNotExistException, TaskAlreadyUnmarkedException {
-        if (index > taskList.size() - 1) {
+    public String unmark(int index) throws IndexDoesNotExistException, TaskAlreadyUnmarkedException {
+        if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
 
-        if (!taskList.get(index).getIsDone()) {
+        if (!tasks.get(index).getIsDone()) {
             throw new TaskAlreadyUnmarkedException();
         }
 
-        taskList.get(index).markAsNotDone();
-        System.out.println(HORIZONTAL_LINE + "It's okay! Let's finish it another time!\n" 
-                + taskList.get(index) + "\n" 
-                + HORIZONTAL_LINE);
+        tasks.get(index).markAsNotDone();
+        
+        return "It's okay! Let's finish it another time!\n" 
+                + tasks.get(index);
     }
 
     /**
      * Deletes a task in the task list at the specified index and prints the appropriate message.
      * 
      * @param index The index of the task in the task list that the user would like to delete.
+     * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      */
-    public void delete(int index) throws IndexDoesNotExistException {
-        if (index > taskList.size() - 1) {
+    public String delete(int index) throws IndexDoesNotExistException {
+        if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
 
-        System.out.println(HORIZONTAL_LINE + "I have removed this task from the list for you:\n" 
-                + taskList.get(index) + "\n" + "You now have " + (taskList.size() - 1) 
-                + " tasks remaining in the list.\n" 
-                + HORIZONTAL_LINE);
-        taskList.remove(index);
+        String message = "I have removed this task from the list for you:\n" 
+                + tasks.get(index) + "\n" + "You now have " + (tasks.size() - 1) 
+                + " tasks remaining in the list.";
+        tasks.remove(index);
+
+        return message;
     }
 
     /**
      * Adds a ToDo to the task list.
      * 
      * @param description The description of the ToDo.
+     * @return A confirmation message.
      * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
      */
-    public void addToDo(String description) throws EmptyDescriptionException {
-        taskList.add(new ToDo(description));
-        System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                + taskList.get(taskList.size() - 1) + "\n" 
-                + "Now you have " + (taskList.size()) + " tasks in the list.\n"
-                + HORIZONTAL_LINE);
+    public String addToDo(String description) throws EmptyDescriptionException {
+        tasks.add(new ToDo(description));
+
+        return  "Aye aye captain! The following task has been added: \n" 
+                + tasks.get(tasks.size() - 1) + "\n" 
+                + "Now you have " + (tasks.size()) + " tasks in the list.";
     }
 
     /**
@@ -131,23 +122,22 @@ public class TaskList {
      * 
      * @param description The description of the Deadline.
      * @param by The deadline of the Deadline.
+     * @return A confirmation message.
      * @throws EmptyDescriptionException If the description of the Deadline is an empty string.
      * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
      */
-    public void addDeadline(String description, String deadline) throws EmptyDescriptionException, EmptyDeadlineException {
+    public String addDeadline(String description, String deadline) throws EmptyDescriptionException, EmptyDeadlineException {
         try {
             LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
             
-            taskList.add(new Deadline(description, byLocalDateTime));
-            System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                    + taskList.get(taskList.size() - 1) + "\n" 
-                    + "Now you have " + (taskList.size()) + " tasks in the list.\n"
-                    + HORIZONTAL_LINE);
+            tasks.add(new Deadline(description, byLocalDateTime));
+
+            return "Aye aye captain! The following task has been added: \n" 
+                    + tasks.get(tasks.size() - 1) + "\n" 
+                    + "Now you have " + (tasks.size()) + " tasks in the list.";
         } catch (DateTimeParseException e) {
-            System.out.println(HORIZONTAL_LINE 
-                    + "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
-                    + " to specify a date that exists \n"
-                    + HORIZONTAL_LINE);
+            return "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
+                    + " to specify a date that exists";
         }
     }
 
@@ -157,12 +147,13 @@ public class TaskList {
      * @param description The description of the Event.
      * @param from The from of the Event.
      * @param to The to of the Event.
+     * @return A confirmation message.
      * @throws EmptyDescriptionException If the description of the Event is an empty string.
      * @throws EmptyFromException If the from of the Event is an empty string.
      * @throws EmptyToException If the to of the Event is an empty string.
      * @throws DateTimeConflictException If the to is before the from.
      */
-    public void addEvent(String description, String from, String to) throws EmptyDescriptionException, 
+    public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
             EmptyFromException, EmptyToException, DateTimeConflictException {
         try {
             LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
@@ -172,16 +163,13 @@ public class TaskList {
                 throw new DateTimeConflictException();
             }
 
-            taskList.add(new Event(description, fromLocalDateTime, toLocalDateTime));
-            System.out.println(HORIZONTAL_LINE + "Aye aye captain! The following task has been added: \n" 
-                    + taskList.get(taskList.size() - 1) + "\n" 
-                    + "Now you have " + (taskList.size()) + " tasks in the list.\n"
-                    + HORIZONTAL_LINE);
+            tasks.add(new Event(description, fromLocalDateTime, toLocalDateTime));
+            return "Aye aye captain! The following task has been added: \n" 
+                    + tasks.get(tasks.size() - 1) + "\n" 
+                    + "Now you have " + (tasks.size()) + " tasks in the list.";
         }  catch (DateTimeParseException e) {
-            System.out.println(HORIZONTAL_LINE 
-                    + "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
-                    + " to specify a date that exists \n"
-                    + HORIZONTAL_LINE);
+            return "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
+                    + " to specify a date that exists";
         }
     }
 
@@ -191,31 +179,48 @@ public class TaskList {
      * @return The task list of TooDoo.
      */
     public ArrayList<Task> getArrayList() {
-        return taskList;
+        return tasks;
     }
 
     /**
      * Prints the Tasks in the tasklist that contains the regex in their description.
      * 
      * @param regex A regular expression used to find Tasks by their description.
+     * @return A string containing matching tasks.
      */
-    public void find(String regex) {
+    public String find(String regex) {
         
-        ArrayList<Task> temporaryTaskList = new ArrayList<>();
+        ArrayList<Task> temporaryTasks = new ArrayList<>();
 
-        for (int i=0;i < this.taskList.size();i++) {
-            if (this.taskList.get(i).getDescription().contains(regex)) {
-                temporaryTaskList.add(this.taskList.get(i));
+        for (int i=0;i < this.tasks.size();i++) {
+            if (this.tasks.get(i).getDescription().contains(regex)) {
+                temporaryTasks.add(this.tasks.get(i));
             }
         }
 
-        System.out.println(HORIZONTAL_LINE + "These are what you are looking for right:");
+        StringBuilder findListString = new StringBuilder("These are what you are looking for right:" + "\n");
 
-        for (int i = 0;i < temporaryTaskList.size();i++) {
-            System.out.println((i + 1) + "." + temporaryTaskList.get(i));
+        for (int i = 0;i < temporaryTasks.size();i++) {
+            findListString.append((i + 1) + "." + temporaryTasks.get(i) + "\n");
         }
 
-        System.out.println(HORIZONTAL_LINE);
+        return findListString.toString();
+    }
+
+    /**
+     * Returns a string representation of the task list.
+     *
+     * @return A formatted string of all tasks.
+     */
+    @Override
+    public String toString() {
+        StringBuilder listString = new StringBuilder("Presenting too you your task list: \n");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            listString.append((i + 1) + "." + tasks.get(i) + "\n");
+        }
+
+        return listString.toString();
     }
 
 }
