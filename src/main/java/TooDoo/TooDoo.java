@@ -42,6 +42,13 @@ public class TooDoo {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+    /**
      * The main flow of the chatbot application.
      */
     public void run() {

@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("toodoo.TooDoo")
+    mainClass.set("toodoo.gui.Launcher")
 }
 
 shadowJar {
