@@ -7,7 +7,9 @@ public class Ui {
     private static final String CHAT_BOT_NAME = "TooDoo";
 
     /**
-     * Prints the welcome message.
+     * Returns the welcome message for the user.
+     *
+     * @return The welcome message string.
      */
     public String getWelcome() {
         return "How are you dooing! " 
@@ -16,7 +18,9 @@ public class Ui {
     }
 
     /**
-     * Prints the exit message.
+     * Returns the exit message for the user.
+     *
+     * @return The exit message string.
      */
     public String getExit() {
         return "Toodles! Visit me again soon!";

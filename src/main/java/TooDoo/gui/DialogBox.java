@@ -48,10 +48,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox for user.
+     * 
+     * @param text The text input from the user.
+     * @param img An image representing the user.
+     * @return A DialogBox for the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox for TooDoo.
+     * 
+     * @param text The text output from the TooDOo.
+     * @param img An image representing TooDOo.
+     * @return A DialogBox for TooDoo's output.
+     */
     public static DialogBox getTooDooDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

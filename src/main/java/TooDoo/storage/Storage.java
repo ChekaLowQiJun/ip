@@ -37,8 +37,9 @@ public class Storage {
 
     /**
      * Saves the current task list and writes to the .txt file specified in the constructor if the file exists.
-     * 
+     *
      * @param taskList A TaskList object used to manage TooDoo's task list.
+     * @return A confirmation message indicating the save result.
      */
     public String saveList(TaskList taskList) {
         try {

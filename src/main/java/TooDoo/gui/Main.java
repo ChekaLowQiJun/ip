@@ -10,12 +10,22 @@ import javafx.scene.layout.AnchorPane;
 
 import toodoo.TooDoo;
 
+
+/**
+ * The entry point of the TooDoo JavaFX application.
+ * This class sets up the primary stage and loads the main window.
+ */
 public class Main extends Application {
 
     private static final String STORAGE_PATH = "./storage/TooDooList.txt";
 
     private TooDoo tooDoo = new TooDoo(STORAGE_PATH);
 
+    /**
+     * Starts the JavaFX application by loading the main window.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
