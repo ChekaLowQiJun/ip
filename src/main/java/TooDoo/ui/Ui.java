@@ -12,7 +12,7 @@ public class Ui {
      * @return The welcome message string.
      */
     public String getWelcome() {
-        return "How are you dooing! " 
+        return "How are you dooing! "
                 + CHAT_BOT_NAME + " at your service!\n"
                 + "What would you like me too doo for you tooday?";
     }

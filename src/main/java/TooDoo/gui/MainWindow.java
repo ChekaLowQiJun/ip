@@ -63,9 +63,7 @@ public class MainWindow extends AnchorPane {
         if (response.equals( "exit")) {
             dialogContainer.getChildren().add(
                     DialogBox.getTooDooDialog(tooDoo.saveList() + "\n \n" + tooDoo.getExit(), tooDooImage));
-
-            
-
+                
             Platform.exit();
         }
 

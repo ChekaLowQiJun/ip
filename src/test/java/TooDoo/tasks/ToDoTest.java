@@ -1,39 +1,39 @@
-package TooDoo.tasks;
-
-import org.junit.jupiter.api.Test;
+package toodoo.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
     @Test
     public void toStringTest() {
-        assertEquals("[T][ ] Dummy", new ToDo("Dummy").toString());
-        assertEquals("[T][ ] Dummy 2", new ToDo("Dummy 2").toString());
-        assertEquals("[T][ ] Dummy To Do", new ToDo("Dummy To Do").toString());
+        assertEquals("[T][ ] Dummy", new ToDo("Dummy").toString()); // Description with one word
+        assertEquals("[T][ ] Dummy two", new ToDo("Dummy two").toString()); // Description with two words
+        assertEquals("[T][ ] Dummy To Do", new ToDo("Dummy To Do").toString()); // Description with three words
     }
 
     @Test
-    public void getTaskStringTest(){
-        assertEquals("T |   | Dummy", new ToDo("Dummy").getTaskString());
-        assertEquals("T |   | Dummy 2", new ToDo("Dummy 2").getTaskString());
-        assertEquals("T |   | Dummy To Do", new ToDo("Dummy To Do").getTaskString());
+    public void getTaskStringTest() {
+        assertEquals("T |   | Dummy", new ToDo("Dummy").getTaskString()); // Description with one word
+        assertEquals("T |   | Dummy two", new ToDo("Dummy two").getTaskString()); // Description with two words
+        assertEquals("T |   | Dummy To Do", new ToDo("Dummy To Do").getTaskString()); // Description with three words
     }
 
     @Test
     public void markTest() {
-        ToDo dummyTask = new ToDo("Dummy");
-        assertEquals(false, dummyTask.getIsDone());
-        dummyTask.markAsDone();
-        assertEquals(true, dummyTask.getIsDone());
+        ToDo dummyToDo = new ToDo("Dummy");
+        assertEquals(false, dummyToDo.getIsDone()); // Initial state of ToDo
+        dummyToDo.markAsDone();
+        assertEquals(true, dummyToDo.getIsDone()); // Marking unmaked ToDo
     }
 
     @Test
     public void unmarkTest() {
-        ToDo dummyTask = new ToDo("Dummy");
-        dummyTask.markAsDone();
-        assertEquals(true, dummyTask.getIsDone());
-        dummyTask.markAsNotDone();
-        assertEquals(false, dummyTask.getIsDone());
+        ToDo dummyToDo = new ToDo("Dummy");
+        dummyToDo.markAsDone();
+        assertEquals(true, dummyToDo.getIsDone()); // Marking unmarked ToDo
+        dummyToDo.markAsNotDone();
+        assertEquals(false, dummyToDo.getIsDone()); // Unmarking marked ToDo
     }
 
 }

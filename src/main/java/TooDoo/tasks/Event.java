@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
  * The Event task that can be added to the task list.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    
     private LocalDateTime from;
     private LocalDateTime to;
-
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
