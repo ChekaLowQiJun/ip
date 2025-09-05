@@ -15,6 +15,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        assert getDescription() != null : "Description should not be null";
+        
         return "[T]" + super.toString();
     }
 
@@ -25,6 +27,8 @@ public class ToDo extends Task {
      */
     @Override
     public String getTaskString() {
+        assert getDescription() != null : "Description should not be null";
+
         return "T | " + this.getStatusIcon() + " | " + this.getDescription();
     }
 }

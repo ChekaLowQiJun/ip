@@ -14,6 +14,10 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+
+        assert from != null : "From time should not be null";
+        assert to != null : "To time should not be null";
+
         this.from = from;
         this.to = to;
     }
@@ -25,6 +29,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert getDescription() != null : "Description should not be null";
+
         return "[E]" + super.toString() + " (from: " + from.getMonth() + " " + from.getDayOfMonth() + " " 
                 + from.getYear() + " " + String.format("%02d:%02dH", from.getHour(), from.getMinute()) 
                 + " to: " + to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + " " 
@@ -38,6 +44,8 @@ public class Event extends Task {
      */
     @Override
     public String getTaskString() {
+        assert getDescription() != null : "Description should not be null";
+        
         return "E | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + from.format(DATE_TIME_FORMATTER) 
                 + " | " + to.format(DATE_TIME_FORMATTER);
     }

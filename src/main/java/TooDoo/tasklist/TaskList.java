@@ -33,6 +33,8 @@ public class TaskList {
     }
 
     public TaskList(ArrayList<Task> taskList) {
+        assert taskList != null : "Task list should not be null";
+        
         this.tasks = taskList;
     }
 
@@ -45,6 +47,9 @@ public class TaskList {
      * @throws TaskAlreadyMarkedException If the task specified is already done.
      */
     public String mark(int index) throws IndexDoesNotExistException, TaskAlreadyMarkedException {
+        assert index >= 0 : "Index should be non-negative";
+        assert index < tasks.size() : "Index should be within bounds";
+
         if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
@@ -68,6 +73,9 @@ public class TaskList {
      * @throws TaskAlreadyUnmarkedException If the task specified is already marked as not done.
      */
     public String unmark(int index) throws IndexDoesNotExistException, TaskAlreadyUnmarkedException {
+        assert index >= 0 : "Index should be non-negative";
+        assert index < tasks.size() : "Index should be within bounds";
+
         if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
@@ -90,6 +98,9 @@ public class TaskList {
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
      */
     public String delete(int index) throws IndexDoesNotExistException {
+        assert index >= 0 : "Index should be non-negative";
+        assert index < tasks.size() : "Index should be within bounds";
+
         if (index > tasks.size() - 1) {
             throw new IndexDoesNotExistException();
         }
@@ -110,6 +121,9 @@ public class TaskList {
      * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
      */
     public String addToDo(String description) throws EmptyDescriptionException {
+        assert description != null : "Description should not be null";
+        assert !description.trim().isEmpty() : "Description should not be empty";
+
         tasks.add(new ToDo(description));
 
         return  "Aye aye captain! The following task has been added: \n" 
@@ -127,6 +141,10 @@ public class TaskList {
      * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
      */
     public String addDeadline(String description, String deadline) throws EmptyDescriptionException, EmptyDeadlineException {
+        assert description != null : "Description should not be null";
+        assert !description.trim().isEmpty() : "Description should not be empty";
+        assert deadline != null : "Deadline should not be null";
+
         try {
             LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
             
@@ -155,6 +173,11 @@ public class TaskList {
      */
     public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
             EmptyFromException, EmptyToException, DateTimeConflictException {
+        assert description != null : "Description should not be null";
+        assert !description.trim().isEmpty() : "Description should not be empty";
+        assert from != null : "From time should not be null";
+        assert to != null : "To time should not be null";
+        
         try {
             LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
             LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);

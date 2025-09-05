@@ -45,6 +45,10 @@ public class Parser {
         String[] splitUserInput = userInput.split(" ");
         String firstWord = splitUserInput[0];
         int index;
+
+        assert taskList != null : "TaskList should not be null";
+        assert userInput != null : "User input should not be null";
+        assert splitUserInput.length > 0 : "Input array should not be empty";
         
         try {
             keyword = Keyword.valueOf(firstWord.toUpperCase());
@@ -72,12 +76,21 @@ public class Parser {
                 return taskList.unmark(index);
             case TODO:
                 String processedToDoString = this.processToDoString(splitUserInput);
+
+                assert processedToDoString != null : "Processed ToDo string should not be null";
+
                 return taskList.addToDo(processedToDoString);
             case DEADLINE:
                 String[] processedDeadlineString = this.processDeadlineString(splitUserInput);
+
+                assert processedDeadlineString.length == 2 : "Deadline should return 2 elements";
+
                 return taskList.addDeadline(processedDeadlineString[0], processedDeadlineString[1]);
             case EVENT:
                 String[] processedEventString = this.processEventString(splitUserInput);
+
+                assert processedEventString.length == 3 : "Event should return 3 elements";
+
                 return taskList.addEvent(processedEventString[0], processedEventString[1], processedEventString[2]);
             case DELETE:
                 if (splitUserInput.length == 1) {
@@ -126,17 +139,16 @@ public class Parser {
     /**
      * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
      * 
-     * @param toDoParts An array containing the words from the user's input when the todo Keyword is encountered.
+     * @param toDoStrings An array containing the words from the user's input when the todo Keyword is encountered.
      * @return The todo's description.
      * @throws EmptyDescriptionException If the todo's description is an empty string.
      */
-    public String processToDoString(String... toDoParts) throws EmptyDescriptionException {
-
-        if (toDoParts.length == 1) {
+    public String processToDoString(String... toDoStrings) throws EmptyDescriptionException {
+        if (toDoStrings.length == 1) {
             throw new EmptyDescriptionException();
         }
 
-        List<String> list = new ArrayList<>(Arrays.asList(toDoParts));
+        List<String> list = new ArrayList<>(Arrays.asList(toDoStrings));
         list.remove(0);
 
         return String.join(" ", list);
@@ -152,6 +164,9 @@ public class Parser {
      */
     public String[] processDeadlineString(String[] deadlineStrings) throws EmptyDescriptionException, 
             EmptyDeadlineException {
+        assert deadlineStrings != null : "Input array should not be null";
+        assert deadlineStrings.length > 1 : "Input should contain more than keyword";
+
         String[] deadlineOutputs = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
@@ -191,6 +206,9 @@ public class Parser {
      */
     public String[] processEventString(String[] eventStrings) throws EmptyDescriptionException, 
             EmptyFromException, EmptyToException, DateTimeConflictException {
+        assert eventStrings != null : "Input array should not be null";
+        assert eventStrings.length > 1 : "Input should contain more than keyword";
+
         String[] eventOutputs = new String[3];
         StringBuilder description = new StringBuilder();
         StringBuilder from = new StringBuilder();
