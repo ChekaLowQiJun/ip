@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
 repositories {
@@ -60,4 +61,9 @@ run{
 
 checkstyle {
     toolVersion = '11.0.0'
+}
+
+javafx {
+    version = "17"  
+    modules = ['javafx.controls', 'javafx.fxml'] 
 }
