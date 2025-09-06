@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
@@ -212,22 +215,30 @@ public class TaskList {
      * @return A string containing matching tasks.
      */
     public String find(String regex) {
+        List<Task> matchingTasks = tasks.stream()
+            .filter(task -> task.getDescription().contains(regex))
+            .collect(Collectors.toList());
         
-        ArrayList<Task> temporaryTasks = new ArrayList<>();
+        return formatFindResults(matchingTasks, regex);
+    }
 
-        for (int i=0;i < this.tasks.size();i++) {
-            if (this.tasks.get(i).getDescription().contains(regex)) {
-                temporaryTasks.add(this.tasks.get(i));
-            }
+    /**
+     * Formats the results of the find command.
+     * 
+     * @param matchingTasks A list of tasks that match the regex.
+     * @param regex The regex used to find matching tasks.
+     * @return A formatted string of the find results.
+     */
+    private String formatFindResults(List<Task> matchingTasks, String regex) {
+        if (matchingTasks.isEmpty()) {
+            return "No tasks found matching: " + regex;
         }
-
-        StringBuilder findListString = new StringBuilder("These are what you are looking for right:" + "\n");
-
-        for (int i = 0;i < temporaryTasks.size();i++) {
-            findListString.append((i + 1) + "." + temporaryTasks.get(i) + "\n");
-        }
-
-        return findListString.toString();
+        
+        StringBuilder result = new StringBuilder("These are what you are looking for right:\n");
+        IntStream.range(0, matchingTasks.size())
+            .forEach(i -> result.append((i + 1) + "." + matchingTasks.get(i) + "\n"));
+        
+        return result.toString();
     }
 
     /**
