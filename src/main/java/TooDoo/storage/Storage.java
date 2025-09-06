@@ -77,7 +77,7 @@ public class Storage {
     public ArrayList<Task> loadList() throws FileNotFoundException, StorageFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        File taskListFile = new File(Storage.filePath); 
+        File taskListFile = new File(Storage.filePath);
 
         assert taskListFile.exists() : "File should exist for loading";
 

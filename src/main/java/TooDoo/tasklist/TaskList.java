@@ -33,9 +33,13 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList using an existing ArrayList of Tasks.
+     * @param taskList An existing ArrayList of Tasks.
+     */
     public TaskList(ArrayList<Task> taskList) {
         assert taskList != null : "Task list should not be null";
-        
+
         this.tasks = taskList;
     }
 
@@ -167,7 +171,7 @@ public class TaskList {
         assert !description.trim().isEmpty() : "Description should not be empty";
         assert from != null : "From time should not be null";
         assert to != null : "To time should not be null";
-        
+
         try {
             LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
             LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
@@ -203,13 +207,12 @@ public class TaskList {
         List<Task> matchingTasks = tasks.stream()
             .filter(task -> task.getDescription().contains(regex))
             .collect(Collectors.toList());
-        
+
         return formatFindResults(matchingTasks, regex);
     }
 
     /**
      * Formats the results of the find command.
-     * 
      * @param matchingTasks A list of tasks that match the regex.
      * @param regex The regex used to find matching tasks.
      * @return A formatted string of the find results.
@@ -218,11 +221,11 @@ public class TaskList {
         if (matchingTasks.isEmpty()) {
             return "No tasks found matching: " + regex;
         }
-        
+
         StringBuilder result = new StringBuilder("These are what you are looking for right:\n");
         IntStream.range(0, matchingTasks.size())
             .forEach(i -> result.append((i + 1) + "." + matchingTasks.get(i) + "\n"));
-        
+
         return result.toString();
     }
 

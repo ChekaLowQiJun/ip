@@ -66,7 +66,7 @@ public class Task {
      */
     public String getTaskString() {
         assert getDescription() != null : "Description should not be null";
-        
+
         return "Task | " + this.getStatusIcon() + " | " + this.getDescription();
     }
 

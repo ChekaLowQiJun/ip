@@ -15,7 +15,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         assert getDescription() != null : "Description should not be null";
-        
+
         return "[T]" + super.toString();
     }
 
