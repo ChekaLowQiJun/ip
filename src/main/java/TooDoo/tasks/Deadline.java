@@ -48,4 +48,12 @@ public class Deadline extends Task {
         return "D | " + this.getStatusIcon() + " | " + this.getDescription() + " | "
                 + deadline.format(DATE_TIME_FORMATTER);
     }
+
+    /**
+     * Returns the deadline date of the Deadline.
+     * @return The deadline date of the Deadline.
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
 }

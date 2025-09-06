@@ -13,5 +13,6 @@ public enum Keyword {
     EVENT,
     DELETE,
     FIND,
+    SORT,
     UNKNOWN
 }

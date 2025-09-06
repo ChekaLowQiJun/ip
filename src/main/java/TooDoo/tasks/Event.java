@@ -53,4 +53,20 @@ public class Event extends Task {
         return "E | " + this.getStatusIcon() + " | " + this.getDescription() + " | " + from.format(DATE_TIME_FORMATTER)
                 + " | " + to.format(DATE_TIME_FORMATTER);
     }
+
+    /**
+     * Returns the from date of the Event.
+     * @return The from date of the Event.
+     */
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    /**
+     * Returns the to date of the Event.
+     * @return The to date of the Event.
+     */
+    public LocalDateTime getTo() {
+        return to;
+    }
 }

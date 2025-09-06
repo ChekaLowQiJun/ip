@@ -84,6 +84,8 @@ public class Parser {
                 return handleDelete(splitUserInput, taskList);
             case FIND:
                 return handleFind(splitUserInput, taskList);
+            case SORT:
+                return taskList.sortTasks();
             case UNKNOWN:
                 throw new UnknownKeywordException(firstWord);
             default:
