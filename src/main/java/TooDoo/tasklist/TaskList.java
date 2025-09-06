@@ -224,7 +224,6 @@ public class TaskList {
             .forEach(i -> result.append((i + 1) + "." + matchingTasks.get(i) + "\n"));
         
         return result.toString();
->>>>>>> master
     }
 
     /**
