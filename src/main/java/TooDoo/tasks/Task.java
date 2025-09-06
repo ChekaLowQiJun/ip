@@ -12,6 +12,9 @@ public class Task {
      * @param description The description of the Task.
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null";
+        assert !description.trim().isEmpty() : "Task description should not be empty";
+
         this.description = description;
         this.isDone = false;
     }
@@ -36,6 +39,7 @@ public class Task {
      * Marks the Task as done.
      */
     public void markAsDone() {
+        assert !isDone : "Task is not supposed to be already marked as done.";
         isDone = true;
     }
 
@@ -43,6 +47,7 @@ public class Task {
      * Unmarks the Task.
      */
     public void markAsNotDone() {
+        assert isDone : "Task is supposed to be already marked as done.";
         isDone = false;
     }
 
@@ -60,6 +65,8 @@ public class Task {
      * @return The type, status and description of a Task.
      */
     public String getTaskString() {
+        assert getDescription() != null : "Description should not be null";
+        
         return "Task | " + this.getStatusIcon() + " | " + this.getDescription();
     }
 
