@@ -4,31 +4,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import toodoo.exceptions.StorageFormatException;
 import toodoo.tasklist.TaskList;
 import toodoo.tasks.Deadline;
 import toodoo.tasks.Event;
 import toodoo.tasks.Task;
 import toodoo.tasks.ToDo;
 
-import toodoo.exceptions.StorageFormatException;
-
 /**
  * The Storage is used by TooDoo to load and make local saves of the task list.
  */
 public class Storage {
     private static String filePath;
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final String TODO_REGEX = "^T \\|   \\| .+?$";
+    private static final String DEADLINE_REGEX = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+    private static final String EVENT_REGEX = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\|"
+            + " \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
 
     /**
      * Constructs the Storage object using the filePath of the existing task list.
-     * 
      * @param filePath File path to the existing .txt file containing the task list.
      */
     public Storage(String filePath) {
@@ -69,7 +70,6 @@ public class Storage {
 
     /**
      * Loads the task list from the .txt file specified in the constructor if it exists and returns it.
-     * 
      * @return The task list from the .txt file.
      * @throws FileNotFoundException If the file specified in the constructor does not exist.
      * @throws StorageFormatException If the .txt file is not in the expected format.
@@ -94,19 +94,14 @@ public class Storage {
 
     /**
      * Processes the lines of text from the .txt file return the corresponding task with the appropriate status.
-     * 
-     * @param input A string representing a line from the .txt file. 
+     * @param input A string representing a line from the .txt file.
      * @return The corresponding task with the appropriate status.
      * @throws StorageFormatException If the .txt file is not in the expected format.
      */
     public static Task processStorageInput(String input) throws StorageFormatException {
         assert input != null : "Input line should not be null";
 
-        String regexT = "^T \\|   \\| .+?$";
-        String regexD = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
-        String regexE = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
-
-        if (!input.matches(regexT) && !input.matches(regexD) && !input.matches(regexE)) {
+        if (!input.matches(TODO_REGEX) && !input.matches(DEADLINE_REGEX) && !input.matches(EVENT_REGEX)) {
             throw new StorageFormatException();
         }
 
@@ -122,7 +117,7 @@ public class Storage {
         } else if (typeOfTask.equals("D")) {
             task = new Deadline(splitInputs[2], LocalDateTime.parse(splitInputs[3], DATE_TIME_FORMATTER));
         } else {
-            task = new Event(splitInputs[2], LocalDateTime.parse(splitInputs[3], DATE_TIME_FORMATTER), 
+            task = new Event(splitInputs[2], LocalDateTime.parse(splitInputs[3], DATE_TIME_FORMATTER),
                     LocalDateTime.parse(splitInputs[4], DATE_TIME_FORMATTER));
         }
 

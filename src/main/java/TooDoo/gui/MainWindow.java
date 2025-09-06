@@ -28,10 +28,10 @@ public class MainWindow extends AnchorPane {
     private Image tooDooImage = new Image(this.getClass().getResourceAsStream("/images/TooDoo.png"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Guest.png"));
 
-    @FXML
     /**
      * Initializes the main window by binding the scroll pane to the dialog container height.
      */
+    @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
@@ -53,17 +53,13 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    /**
-     * Handles user input from the text field, generates a response from TooDoo,
-     * and displays both the user input and TooDoo's response in the dialog container.
-     */
     private void handleUserInput() {
         String input = userInput.getText();
         String response = tooDoo.getResponse(input);
-        if (response.equals( "exit")) {
+        if (response.equals("exit")) {
             dialogContainer.getChildren().add(
                     DialogBox.getTooDooDialog(tooDoo.saveList() + "\n \n" + tooDoo.getExit(), tooDooImage));
-                
+
             Platform.exit();
         }
 

@@ -2,17 +2,17 @@ package toodoo.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter; 
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Test
-    public void toStringTest() { 
+    public void toStringTest() {
         Deadline dummyDeadline = new Deadline("Dummy",
                 LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER));
         Deadline dummyTwoDeadline = new Deadline("Dummy two",
@@ -29,7 +29,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void getTaskStringTest(){
+    public void getTaskStringTest() {
         Deadline dummyDeadline = new Deadline("Dummy",
                 LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER));
         Deadline dummyTwoDeadline = new Deadline("Dummy two",
@@ -47,7 +47,7 @@ public class DeadlineTest {
 
     @Test
     public void markTest() {
-        Deadline dummyTask = new Deadline("Dummy", 
+        Deadline dummyTask = new Deadline("Dummy",
                 LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER));
 
         assertEquals(false, dummyTask.getIsDone()); // Initial state of Deadline
@@ -57,7 +57,7 @@ public class DeadlineTest {
 
     @Test
     public void unmarkTest() {
-        Deadline dummyTask = new Deadline("Dummy", 
+        Deadline dummyTask = new Deadline("Dummy",
                 LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER));
         dummyTask.markAsDone();
         assertEquals(true, dummyTask.getIsDone()); // Marking unmarked Deadline
