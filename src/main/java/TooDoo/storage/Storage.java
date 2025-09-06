@@ -32,6 +32,9 @@ public class Storage {
      * @param filePath File path to the existing .txt file containing the task list.
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.trim().isEmpty() : "File path should not be empty";
+
         Storage.filePath = filePath;
     }
 
@@ -42,6 +45,8 @@ public class Storage {
      * @return A confirmation message indicating the save result.
      */
     public String saveList(TaskList taskList) {
+        assert taskList != null : "TaskList should not be null";
+
         try {
             if (new File(Storage.filePath).exists()) {
                 FileWriter fw = new FileWriter(Storage.filePath);
@@ -73,6 +78,9 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         File taskListFile = new File(Storage.filePath); 
+
+        assert taskListFile.exists() : "File should exist for loading";
+
         Scanner taskListScanner = new Scanner(taskListFile);
 
         while (taskListScanner.hasNext()) {
@@ -92,6 +100,8 @@ public class Storage {
      * @throws StorageFormatException If the .txt file is not in the expected format.
      */
     public static Task processStorageInput(String input) throws StorageFormatException {
+        assert input != null : "Input line should not be null";
+
         String regexT = "^T \\|   \\| .+?$";
         String regexD = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
         String regexE = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
@@ -104,6 +114,8 @@ public class Storage {
         String typeOfTask = splitInputs[0];
         boolean isDone = splitInputs[1].equals("X") ? true : false;
         Task task;
+
+        assert splitInputs.length >= 3 : "Input should have at least 3 parts";
 
         if (typeOfTask.equals("T")) {
             task = new ToDo(splitInputs[2]);
