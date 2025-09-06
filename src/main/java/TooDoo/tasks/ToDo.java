@@ -10,7 +10,6 @@ public class ToDo extends Task {
 
     /**
      * Returns the string representation of a ToDo.
-     * 
      * @return The type, status, and description of a ToDo.
      */
     @Override
@@ -20,7 +19,6 @@ public class ToDo extends Task {
 
     /**
      * Returns the string representation of a ToDo to be saved in the storage.
-     * 
      * @return The type, status and description of a ToDo.
      */
     @Override

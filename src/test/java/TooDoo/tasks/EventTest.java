@@ -13,41 +13,41 @@ public class EventTest {
 
     @Test
     public void toStringTest() {
-        Event dummyEvent = new Event("Dummy", 
-                LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER), 
+        Event dummyEvent = new Event("Dummy",
+                LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 20:45", DATE_TIME_FORMATTER));
-        Event dummyTwoEvent = new Event("Dummy twp", 
-                LocalDateTime.parse("2025-10-22 00:45", DATE_TIME_FORMATTER), 
+        Event dummyTwoEvent = new Event("Dummy two",
+                LocalDateTime.parse("2025-10-22 00:45", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 10:10", DATE_TIME_FORMATTER));
-        Event dummyTwoTwoEvent = new Event("Dummy two two", 
-                LocalDateTime.parse("2025-10-22 10:00", DATE_TIME_FORMATTER), 
+        Event dummyTwoTwoEvent = new Event("Dummy two two",
+                LocalDateTime.parse("2025-10-22 10:00", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 20:00", DATE_TIME_FORMATTER));
 
         assertEquals("[E][ ] Dummy (from: OCTOBER 22 2025 10:45H to: OCTOBER 22 2025 20:45H)",
                 dummyEvent.toString()); // Description with one word
-        assertEquals("[E][ ] Dummy 2 (from: OCTOBER 22 2025 00:45H to: OCTOBER 22 2025 10:10H)",
+        assertEquals("[E][ ] Dummy two (from: OCTOBER 22 2025 00:45H to: OCTOBER 22 2025 10:10H)",
                 dummyTwoEvent.toString()); // Description with two words and date-time with leading zeros
-        assertEquals("[E][ ] Dummy Event (from: OCTOBER 22 2025 10:00H to: OCTOBER 22 2025 20:00H)", 
+        assertEquals("[E][ ] Dummy two two (from: OCTOBER 22 2025 10:00H to: OCTOBER 22 2025 20:00H)",
                 dummyTwoTwoEvent.toString()); // Description with two words and date-time with trailing zeros
     }
 
     @Test
-    public void getTaskStringTest(){
-        Event dummyEvent = new Event("Dummy", 
-                LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER), 
+    public void getTaskStringTest() {
+        Event dummyEvent = new Event("Dummy",
+                LocalDateTime.parse("2025-10-22 10:45", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 20:45", DATE_TIME_FORMATTER));
-        Event dummyTwoEvent = new Event("Dummy twp", 
-                LocalDateTime.parse("2025-10-22 00:45", DATE_TIME_FORMATTER), 
+        Event dummyTwoEvent = new Event("Dummy two",
+                LocalDateTime.parse("2025-10-22 00:45", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 10:10", DATE_TIME_FORMATTER));
-        Event dummyTwoTwoEvent = new Event("Dummy two two", 
-                LocalDateTime.parse("2025-10-22 10:00", DATE_TIME_FORMATTER), 
+        Event dummyTwoTwoEvent = new Event("Dummy two two",
+                LocalDateTime.parse("2025-10-22 10:00", DATE_TIME_FORMATTER),
                 LocalDateTime.parse("2025-10-22 20:00", DATE_TIME_FORMATTER));
 
         assertEquals("E |   | Dummy | 2025-10-22 10:45 | 2025-10-22 20:45",
                 dummyEvent.getTaskString()); // Description with one word
-        assertEquals("E |   | Dummy 2 | 2025-10-22 00:45 | 2025-10-22 10:10",
+        assertEquals("E |   | Dummy two | 2025-10-22 00:45 | 2025-10-22 10:10",
                 dummyTwoEvent.getTaskString()); // Description with two words and date-time with leading zeros
-        assertEquals("E |   | Dummy Event | 2025-10-22 10:00 | 2025-10-22 20:00",
+        assertEquals("E |   | Dummy two two | 2025-10-22 10:00 | 2025-10-22 20:00",
                 dummyTwoTwoEvent.getTaskString()); // Description with two words and date-time with trailing zeros
     }
 
