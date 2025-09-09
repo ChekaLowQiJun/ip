@@ -285,7 +285,7 @@ public class TaskList {
             }
         });
 
-        return "Your tasks have been sorted successfully!\n" + this.toString();
+        return "Your tasks have been sorted successfully!";
     }
 
     /**

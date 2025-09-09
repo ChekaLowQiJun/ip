@@ -153,12 +153,12 @@ public class Parser {
         String[] deadlineOutputs = new String[2];
         StringBuilder description = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
-        boolean beforeDeadline = true;
+        boolean isBeforeDeadline = true;
 
         for (int i = 1; i < deadlineStrings.length; i++) {
             if (deadlineStrings[i].equals("/by")) {
-                beforeDeadline = false;
-            } else if (beforeDeadline) {
+                isBeforeDeadline = false;
+            } else if (isBeforeDeadline) {
                 description.append(deadlineStrings[i] + " ");
             } else {
                 deadline.append(deadlineStrings[i] + " ");

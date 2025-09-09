@@ -4,11 +4,17 @@
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-overflow: clip; 
+    -fx-wrap-text: true; 
+    -fx-max-width: infinity; 
 }
 
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-overflow: clip; 
+    -fx-wrap-text: true; 
+    -fx-max-width: infinity; 
 }
 
 #displayPicture {
@@ -22,4 +28,3 @@
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
 }
-

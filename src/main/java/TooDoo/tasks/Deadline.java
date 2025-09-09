@@ -13,11 +13,11 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline task.
-     * @param decscription The description of the Deadline task.
+     * @param description The description of the Deadline task.
      * @param deadline The deadline of the Deadline task.
      */
-    public Deadline(String decscription, LocalDateTime deadline) {
-        super(decscription);
+    public Deadline(String description, LocalDateTime deadline) {
+        super(description);
 
         assert deadline != null : "Deadline should not be null";
 
