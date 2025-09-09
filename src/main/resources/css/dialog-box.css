@@ -1,12 +1,13 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: linear-gradient(to bottom right, #d8bfd8, #9370db);
+    -fx-border-color: #6a5acd #8a2be2 #9932cc #9400d3;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
     -fx-text-overflow: clip; 
     -fx-wrap-text: true; 
     -fx-max-width: infinity; 
+    -fx-text-fill: #2c0030;
 }
 
 .reply-label {
@@ -15,11 +16,12 @@
     -fx-text-overflow: clip; 
     -fx-wrap-text: true; 
     -fx-max-width: infinity; 
+    -fx-text-fill: #2c0030;
 }
 
 #displayPicture {
     /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-effect: dropshadow(gaussian, rgba(75, 0, 130, 0.3), 10, 0.5, 5, 5);
 
     /* Change size of image. */
     -fx-scale-x: 1;
