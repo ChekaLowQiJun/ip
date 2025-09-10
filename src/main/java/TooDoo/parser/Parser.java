@@ -10,6 +10,7 @@ import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyIndexException;
 import toodoo.exceptions.EmptyRegexException;
+import toodoo.exceptions.EmptyTaskListException;
 import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.IndexDoesNotExistException;
 import toodoo.exceptions.TaskAlreadyMarkedException;
@@ -116,6 +117,8 @@ public class Parser {
             return e.getMessage();
         } catch (NumberFormatException e) {
             return "Please provide a valid integer for the task number :(";
+        } catch (EmptyTaskListException e) {
+            return e.getMessage();
         }
     }
 

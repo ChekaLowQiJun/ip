@@ -12,6 +12,7 @@ import toodoo.exceptions.DateTimeConflictException;
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
+import toodoo.exceptions.EmptyTaskListException;
 import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.IndexDoesNotExistException;
 import toodoo.exceptions.TaskAlreadyMarkedException;
@@ -258,7 +259,11 @@ public class TaskList {
      * - ToDos are sorted by description only
      * @return A confirmation message indicating the tasks have been sorted.
      */
-    public String sortTasks() {
+    public String sortTasks() throws EmptyTaskListException {
+        if (tasks.isEmpty()) {
+            throw new EmptyTaskListException();
+        }
+
         tasks.sort((task1, task2) -> {
             // Events and Deadlines come before ToDos
             boolean isTask1Timed = (task1 instanceof Event) || (task1 instanceof Deadline);
