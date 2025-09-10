@@ -145,7 +145,7 @@ public class TaskList {
 
             tasks.add(new Deadline(description, byLocalDateTime));
 
-            return "Aye aye captain! The following task has been added: \n"
+            return "Aye aye captain! The following task has been added:\n"
                     + tasks.get(tasks.size() - 1) + "\n"
                     + "Now you have " + (tasks.size()) + " tasks in the list.";
         } catch (DateTimeParseException e) {
