@@ -5,6 +5,6 @@ package toodoo.exceptions;
  */
 public class DateTimeConflictException extends Exception {
     public DateTimeConflictException() {
-        super("Are you a time traveller...why is your to at a time before your from?");
+        super("Are you a time traveller...why is your too at a time before your from?");
     }
 }
