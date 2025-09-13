@@ -1,12 +1,6 @@
 package toodoo.tasklist;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import toodoo.exceptions.DateTimeConflictException;
 import toodoo.exceptions.EmptyDeadlineException;
@@ -17,17 +11,12 @@ import toodoo.exceptions.EmptyToException;
 import toodoo.exceptions.IndexDoesNotExistException;
 import toodoo.exceptions.TaskAlreadyMarkedException;
 import toodoo.exceptions.TaskAlreadyUnmarkedException;
-import toodoo.tasks.Deadline;
-import toodoo.tasks.Event;
 import toodoo.tasks.Task;
-import toodoo.tasks.ToDo;
 
 /**
  * The TaskList is used by TooDoo to manage its task list.
  */
 public class TaskList {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -43,6 +32,20 @@ public class TaskList {
 
         this.tasks = taskList;
     }
+
+    public String addToDo(String description) throws EmptyDescriptionException {
+        return TaskListAdder.addToDo(tasks, description);
+    }
+
+    public String addDeadline(String description, String deadline) throws EmptyDescriptionException,
+            EmptyDeadlineException {
+        return TaskListAdder.addDeadline(tasks, description, deadline);
+    }
+
+    public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
+            EmptyFromException, EmptyToException, DateTimeConflictException {
+        return TaskListAdder.addEvent(tasks, description, from, to);
+    }   
 
     /**
      * Marks a task in the task list at the specified index as done and prints the appropriate message.
@@ -111,87 +114,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a ToDo to the task list.
-     * @param description The description of the ToDo.
-     * @return A confirmation message.
-     * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
-     */
-    public String addToDo(String description) throws EmptyDescriptionException {
-        assert description != null : "Description should not be null";
-        assert !description.trim().isEmpty() : "Description should not be empty";
-
-        tasks.add(new ToDo(description));
-
-        return "Aye aye captain! The following task has been added:\n"
-                + tasks.get(tasks.size() - 1) + "\n"
-                + "Now you have " + (tasks.size()) + " tasks in the list.";
-    }
-
-    /**
-     * Adds a Deadline to the task list.
-     * @param description The description of the Deadline.
-     * @param deadline The deadline of the Deadline.
-     * @return A confirmation message.
-     * @throws EmptyDescriptionException If the description of the Deadline is an empty string.
-     * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
-     */
-    public String addDeadline(String description, String deadline) throws EmptyDescriptionException,
-            EmptyDeadlineException {
-        assert description != null : "Description should not be null";
-        assert !description.trim().isEmpty() : "Description should not be empty";
-        assert deadline != null : "Deadline should not be null";
-
-        try {
-            LocalDateTime byLocalDateTime = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
-
-            tasks.add(new Deadline(description, byLocalDateTime));
-
-            return "Aye aye captain! The following task has been added:\n"
-                    + tasks.get(tasks.size() - 1) + "\n"
-                    + "Now you have " + (tasks.size()) + " tasks in the list.";
-        } catch (DateTimeParseException e) {
-            return "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
-                    + " to specify a date that exists";
-        }
-    }
-
-    /**
-     * Adds an Event to the task list.
-     * @param description The description of the Event.
-     * @param from The from of the Event.
-     * @param to The to of the Event.
-     * @return A confirmation message.
-     * @throws EmptyDescriptionException If the description of the Event is an empty string.
-     * @throws EmptyFromException If the from of the Event is an empty string.
-     * @throws EmptyToException If the to of the Event is an empty string.
-     * @throws DateTimeConflictException If the to is before the from.
-     */
-    public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
-            EmptyFromException, EmptyToException, DateTimeConflictException {
-        assert description != null : "Description should not be null";
-        assert !description.trim().isEmpty() : "Description should not be empty";
-        assert from != null : "From time should not be null";
-        assert to != null : "To time should not be null";
-
-        try {
-            LocalDateTime fromLocalDateTime = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
-            LocalDateTime toLocalDateTime = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
-
-            if (toLocalDateTime.isBefore(fromLocalDateTime)) {
-                throw new DateTimeConflictException();
-            }
-
-            tasks.add(new Event(description, fromLocalDateTime, toLocalDateTime));
-            return "Aye aye captain! The following task has been added:\n"
-                    + tasks.get(tasks.size() - 1) + "\n"
-                    + "Now you have " + (tasks.size()) + " tasks in the list.";
-        } catch (DateTimeParseException e) {
-            return "When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
-                    + " to specify a date that exists";
-        }
-    }
-
-    /**
      * Returns the task list.
      * @return The task list of TooDoo.
      */
@@ -205,29 +127,7 @@ public class TaskList {
      * @return A string containing matching tasks.
      */
     public String find(String regex) {
-        List<Task> matchingTasks = tasks.stream()
-            .filter(task -> task.getDescription().contains(regex))
-            .collect(Collectors.toList());
-
-        return formatFindResults(matchingTasks, regex);
-    }
-
-    /**
-     * Formats the results of the find command.
-     * @param matchingTasks A list of tasks that match the regex.
-     * @param regex The regex used to find matching tasks.
-     * @return A formatted string of the find results.
-     */
-    private String formatFindResults(List<Task> matchingTasks, String regex) {
-        if (matchingTasks.isEmpty()) {
-            return "No tasks found matching: " + regex;
-        }
-
-        StringBuilder result = new StringBuilder("These are what you are looking for right:\n");
-        IntStream.range(0, matchingTasks.size())
-            .forEach(i -> result.append((i + 1) + "." + matchingTasks.get(i) + "\n"));
-
-        return result.toString();
+        return TaskListFinder.find(regex, tasks);
     }
 
     /**
@@ -251,64 +151,7 @@ public class TaskList {
         }
     }
 
-    /**
-     * Sorts the task list according to specific criteria:
-     * - Events and Deadlines come before ToDos
-     * - Events/Deadlines are sorted by their from date/deadline respectively
-     * - Tie-breaker for Events/Deadlines is description
-     * - ToDos are sorted by description only
-     * @return A confirmation message indicating the tasks have been sorted.
-     */
     public String sortTasks() throws EmptyTaskListException {
-        if (tasks.isEmpty()) {
-            throw new EmptyTaskListException();
-        }
-
-        tasks.sort((task1, task2) -> {
-            // Events and Deadlines come before ToDos
-            boolean isTask1Timed = (task1 instanceof Event) || (task1 instanceof Deadline);
-            boolean isTask2Timed = (task2 instanceof Event) || (task2 instanceof Deadline);
-
-            if (isTask1Timed && !isTask2Timed) {
-                return -1; // task1 comes before task2
-            } else if (!isTask1Timed && isTask2Timed) {
-                return 1; // task2 comes before task1
-            } else if (isTask1Timed && isTask2Timed) {
-                // Both are timed tasks - compare by date
-                LocalDateTime date1 = getTaskDateTime(task1);
-                LocalDateTime date2 = getTaskDateTime(task2);
-
-                int dateComparison = date1.compareTo(date2);
-                if (dateComparison != 0) {
-                    return dateComparison;
-                }
-                // Tie-breaker: description
-                return task1.getDescription().compareTo(task2.getDescription());
-            } else {
-                // Both are ToDos - compare by description only
-                return task1.getDescription().compareTo(task2.getDescription());
-            }
-        });
-
-        return "Your tasks have been sorted successfully!";
-    }
-
-    /**
-     * Helper method to extract the relevant date from a task
-     * For Events: returns the from date
-     * For Deadlines: returns the deadline
-     * For ToDos: returns a very distant future date (so they sort to the end)
-     * @param task The task from which to extract the date
-     * @return The relevant LocalDateTime for sorting
-     */
-    private LocalDateTime getTaskDateTime(Task task) {
-        if (task instanceof Event) {
-            return ((Event) task).getFrom();
-        } else if (task instanceof Deadline) {
-            return ((Deadline) task).getDeadline();
-        } else {
-            // For ToDos, return a date far in the future so they sort to the end
-            return LocalDateTime.MAX;
-        }
+        return TaskListSorter.sortTasks(tasks);
     }
 }
