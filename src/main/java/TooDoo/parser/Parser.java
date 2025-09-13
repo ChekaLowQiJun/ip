@@ -60,19 +60,19 @@ public class Parser {
             case UNMARK:
                 return TaskListManipulationProcessor.handleUnmark(splitUserInput, taskList);
             case TODO:
-                String processedToDoString = this.processToDoString(splitUserInput);
+                String processedToDoString = ToDoProcessor.processToDoString(splitUserInput);
 
                 assert processedToDoString != null : "Processed ToDo string should not be null";
 
                 return taskList.addToDo(processedToDoString);
             case DEADLINE:
-                String[] processedDeadlineString = this.processDeadlineString(splitUserInput);
+                String[] processedDeadlineString = DeadlineProcessor.processDeadlineString(splitUserInput);
 
                 assert processedDeadlineString.length == 2 : "Deadline should return 2 elements";
 
                 return taskList.addDeadline(processedDeadlineString[0], processedDeadlineString[1]);
             case EVENT:
-                String[] processedEventString = this.processEventString(splitUserInput);
+                String[] processedEventString = EventProcessor.processEventString(splitUserInput);
 
                 assert processedEventString.length == 3 : "Event should return 3 elements";
 
@@ -98,19 +98,4 @@ public class Parser {
             return "Please provide a valid integer for the task number :(";
         }
     }
-
-    public String processToDoString(String... toDoStrings) throws EmptyDescriptionException {
-        return ToDoProcessor.processToDoString(toDoStrings);
-    }
-
-    public String[] processDeadlineString(String[] deadlineStrings) throws EmptyDescriptionException,
-            EmptyDeadlineException{
-        return DeadlineProcessor.processDeadlineString(deadlineStrings);
-    }
-
-    public String[] processEventString(String[] eventStrings) throws EmptyDescriptionException,
-            EmptyFromException, EmptyToException, DateTimeConflictException {
-        return EventProcessor.processEventString(eventStrings);
-    }
-
 }

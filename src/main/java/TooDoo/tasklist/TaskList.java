@@ -19,6 +19,9 @@ import toodoo.tasks.Task;
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -33,15 +36,40 @@ public class TaskList {
         this.tasks = taskList;
     }
 
+    /**
+     * Adds a ToDo to the task list.
+     * @param description The description of the ToDo.
+     * @return A confirmation message.
+     * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
+     */
     public String addToDo(String description) throws EmptyDescriptionException {
         return TaskListAdder.addToDo(tasks, description);
     }
 
+    /**
+     * Adds a Deadline to the task list.
+     * @param description The description of the Deadline.
+     * @param deadline The deadline of the Deadline.
+     * @return A confirmation message.
+     * @throws EmptyDescriptionException If the description of the Deadline is an empty string.
+     * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
+     */
     public String addDeadline(String description, String deadline) throws EmptyDescriptionException,
             EmptyDeadlineException {
         return TaskListAdder.addDeadline(tasks, description, deadline);
     }
 
+    /**
+     * Adds an Event to the task list.
+     * @param description The description of the Event.
+     * @param from The from time of the Event.
+     * @param to The to time of the Event.
+     * @return A confirmation message.
+     * @throws EmptyDescriptionException If the description of the Event is an empty string.
+     * @throws EmptyFromException If the from time of the Event is an empty string.
+     * @throws EmptyToException If the to time of the Event is an empty string.
+     * @throws DateTimeConflictException If the to time is before the from time.
+     */
     public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
             EmptyFromException, EmptyToException, DateTimeConflictException {
         return TaskListAdder.addEvent(tasks, description, from, to);
@@ -145,12 +173,22 @@ public class TaskList {
         return listString.toString();
     }
 
+    /**
+     * Validates that the given index exists in the task list.
+     * @param index Index of task.
+     * @throws IndexDoesNotExistException If the index provided is not valid.
+     */
     private void validateIndex(int index) throws IndexDoesNotExistException {
         if (index < 0 || index >= tasks.size()) {
             throw new IndexDoesNotExistException();
         }
     }
 
+    /**
+     * Sorts the task list according to a specific criteria.
+     * @return A confirmation message indicating the tasks have been sorted.
+     * @throws EmptyTaskListException If the task list is empty.
+     */
     public String sortTasks() throws EmptyTaskListException {
         return TaskListSorter.sortTasks(tasks);
     }

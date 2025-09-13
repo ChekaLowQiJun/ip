@@ -22,7 +22,6 @@ public class Main extends Application {
 
     /**
      * Starts the JavaFX application by loading the main window.
-     *
      * @param stage The primary stage for this application.
      */
     @Override

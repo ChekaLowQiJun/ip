@@ -58,6 +58,11 @@ public class EventProcessor {
         return eventOutputs;
     }
 
+    /**
+     * Removes the last character from a StringBuilder.
+     * @param string The StringBuilder from which to remove the last character.
+     * @return The StringBuilder with the last character removed.
+     */
     public static StringBuilder removeLastCharacter(StringBuilder string) {
         return string.deleteCharAt(string.length() - 1);
     }

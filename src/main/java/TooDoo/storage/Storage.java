@@ -24,10 +24,21 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the current task list to the storage file.
+     * @param taskList The TaskList to be saved.
+     * @return A confirmation message indicating the save result.
+     */
     public String saveList(TaskList taskList) {
         return StorageSaver.saveList(taskList, filePath);
     }
 
+    /**
+     * Loads the task list from the storage file.
+     * @return The loaded ArrayList of Tasks.
+     * @throws FileNotFoundException If the storage file does not exist.
+     * @throws StorageFormatException If the storage file is not in the expected format.
+     */
     public ArrayList<Task> loadList() throws FileNotFoundException, StorageFormatException {
         return StorageLoader.loadList(filePath);
     }

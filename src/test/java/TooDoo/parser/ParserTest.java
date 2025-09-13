@@ -2,14 +2,21 @@ package toodoo.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import toodoo.tasklist.TaskList;
 
 public class ParserTest {
 
-    private Parser parser = new Parser();
-    private TaskList taskList = new TaskList();
+    private Parser parser;
+    private TaskList taskList;
+
+    @BeforeEach
+    public void setUp() {
+        parser = new Parser();
+        taskList = new TaskList();
+    }
 
     @Test
     public void getKeyWordTest() {
@@ -19,10 +26,19 @@ public class ParserTest {
     }
 
     @Test
-    public void processUserInputTest() {
+    public void processUserInputBasicCommandsTest() {
         String testByeInput = "bye";
         assertEquals("exit", parser.processUserInput(taskList, testByeInput));
 
+        String testListInput = "list";
+        assertEquals(taskList.toString(), parser.processUserInput(taskList, testListInput));
+
+        String testSortInput = "sort";
+        assertEquals("Can't be sorting an empty task list now, can we?", parser.processUserInput(taskList, testSortInput));
+    }
+
+    @Test
+    public void processUserInputAddTaskCommandsTest() {
         String testToDoInput = "todo Read book";
         assertEquals("Aye aye captain! The following task has been added:\n"
                 + "[T][ ] Read book\n"
@@ -37,9 +53,12 @@ public class ParserTest {
         assertEquals("Aye aye captain! The following task has been added:\n"
                 + "[E][ ] Project meeting (from: SEPTEMBER 15 2024 14:00H to: SEPTEMBER 15 2024 15:00H)\n"
                 + "Now you have 3 tasks in the list.", parser.processUserInput(taskList, testEventInput));
+    }
 
-        String testListInput = "list";
-        assertEquals(taskList.toString(), parser.processUserInput(taskList, testListInput));
+    @Test
+    public void processUserInputTaskManipulationCommandsTest() {
+        // Setup: Add a task first
+        parser.processUserInput(taskList, "todo Read book");
 
         String testMarkInput = "mark 1";
         assertEquals("Good Job! You have completed this task:\n"
@@ -52,23 +71,29 @@ public class ParserTest {
         String testDeleteInput = "delete 1";
         assertEquals("I have removed this task from the list for you:\n"
                 + "[T][ ] Read book\n"
-                + "You now have 2 tasks remaining in the list.", parser.processUserInput(taskList, testDeleteInput));
+                + "You now have 0 tasks remaining in the list.", parser.processUserInput(taskList, testDeleteInput));
+    }
+
+    @Test
+    public void processUserInputFindCommandTest() {
+        // Setup: Add an event first
+        parser.processUserInput(taskList, "event Project meeting /from 2024-09-15 14:00 /to 2024-09-15 15:00");
 
         String testFindInput = "find Project";
         assertEquals("These are what you are looking for right:\n"
                 + "1.[E][ ] Project meeting (from: SEPTEMBER 15 2024 14:00H to:"
                 + " SEPTEMBER 15 2024 15:00H)\n", parser.processUserInput(taskList, testFindInput));
+    }
 
-        String testSortInput = "sort";
-        assertEquals("Your tasks have been sorted successfully!", parser.processUserInput(taskList, testSortInput));
-
-        String testForSortedList = "list";
-        assertEquals(taskList.toString(), parser.processUserInput(taskList, testForSortedList));
-
+    @Test
+    public void processUserInputUnknownKeywordTest() {
         String testInvalidInput = "hello";
         assertEquals("Hmmmmm I doo not recognise this word: hello",
                 parser.processUserInput(taskList, testInvalidInput));
+    }
 
+    @Test
+    public void processUserInputEmptyDescriptionErrorsTest() {
         String testEmptyToDoDescriptionInput = "todo ";
         assertEquals("Have you made a mistake? It would seem that your task's description is empty.",
                 parser.processUserInput(taskList, testEmptyToDoDescriptionInput));
@@ -80,7 +105,10 @@ public class ParserTest {
         String testEmptyEventDescriptionInput = "event /from 2024-09-15 14:00 /to 2024-09-15 15:00";
         assertEquals("Have you made a mistake? It would seem that your task's description is empty.",
                 parser.processUserInput(taskList, testEmptyEventDescriptionInput));
+    }
 
+    @Test
+    public void processUserInputEmptyFieldErrorsTest() {
         String testEmptyDeadlineDeadlineInput = "deadline Submit assignment /by ";
         assertEquals("Oh dear...if your task has noo deadline, maybe it should be a toodoo.",
                 parser.processUserInput(taskList, testEmptyDeadlineDeadlineInput));
@@ -96,7 +124,10 @@ public class ParserTest {
         String testEmptyRegexInput = "find";
         assertEquals("How am I going too find it if you don't give me any hints :\"(",
                 parser.processUserInput(taskList, testEmptyRegexInput));
+    }
 
+    @Test
+    public void processUserInputEmptyIndexErrorsTest() {
         String testEmptyMarkIndexInput = "mark";
         assertEquals("You must have forgotten too provide an integer representing the task's index -_-",
                 parser.processUserInput(taskList, testEmptyMarkIndexInput));
@@ -108,7 +139,10 @@ public class ParserTest {
         String testEmptyDeleteIndexInput = "delete";
         assertEquals("You must have forgotten too provide an integer representing the task's index -_-",
                 parser.processUserInput(taskList, testEmptyDeleteIndexInput));
+    }
 
+    @Test
+    public void processUserInputInvalidIndexErrorsTest() {
         String testInvalidMarkIndexInput = "mark one";
         assertEquals("Please provide a valid integer for the task number :(",
                 parser.processUserInput(taskList, testInvalidMarkIndexInput));
@@ -120,7 +154,10 @@ public class ParserTest {
         String testInvalidDeleteIndexInput = "delete one";
         assertEquals("Please provide a valid integer for the task number :(",
                 parser.processUserInput(taskList, testInvalidDeleteIndexInput));
+    }
 
+    @Test
+    public void processUserInputDateTimeErrorsTest() {
         String testEventDateTimeConflictInput = "event Project meeting /from 2024-09-15 16:00 /to 2024-09-15 15:00";
         assertEquals("Are you a time traveller...why is your too at a time before your from?",
                 parser.processUserInput(taskList, testEventDateTimeConflictInput));
@@ -135,19 +172,24 @@ public class ParserTest {
         assertEquals("When specifying a date and time, please use the following format yyyy-MM-dd HH:mm !"
                 + " to specify a date that exists",
                 parser.processUserInput(taskList, testEventInvalidDateTimeFormatInput));
+    }
+
+    @Test
+    public void processUserInputTaskStatusErrorsTest() {
+        // Setup: Add and mark a task
+        parser.processUserInput(taskList, "todo Test task");
+        parser.processUserInput(taskList, "mark 1");
+
+        String testToDoAlreadyMarkedInput = "mark 1";
+        assertEquals("The task you specified is already marked as done!",
+                parser.processUserInput(taskList, testToDoAlreadyMarkedInput));
+
+        // Setup: Unmark the task
+        parser.processUserInput(taskList, "unmark 1");
 
         String testToDoAlreadyUnmarkedInput = "unmark 1";
         assertEquals("The task you specified is already marked as not done!",
                 parser.processUserInput(taskList, testToDoAlreadyUnmarkedInput));
-
-        String markInput = "mark 1";
-        assertEquals("Good Job! You have completed this task:\n"
-                + "[E][X] Project meeting (from: SEPTEMBER 15 2024 14:00H to: SEPTEMBER 15 2024 15:00H)",
-                parser.processUserInput(taskList, markInput));
-
-        String testToDoAlreadMarkedInput = "mark 1";
-        assertEquals("The task you specified is already marked as done!",
-                parser.processUserInput(taskList, testToDoAlreadMarkedInput));
     }
 
 }
