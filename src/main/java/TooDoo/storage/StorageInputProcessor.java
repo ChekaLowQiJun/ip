@@ -9,13 +9,16 @@ import toodoo.tasks.Event;
 import toodoo.tasks.Task;
 import toodoo.tasks.ToDo;
 
+/**
+ * Process the contents of the .txt storage file.
+ */
 public class StorageInputProcessor {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final String TODO_REGEX = "^T \\|   \\| .+?$";
     private static final String DEADLINE_REGEX = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
     private static final String EVENT_REGEX = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\|"
             + " \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
-    
+
     /**
      * Processes the lines of text from the .txt file return the corresponding task with the appropriate status.
      * @param input A string representing a line from the .txt file.

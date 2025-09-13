@@ -6,8 +6,11 @@ import java.util.List;
 
 import toodoo.exceptions.EmptyDescriptionException;
 
+/**
+ * Process the user's input when the todo Keyword is encountered.
+ */
 public class ToDoProcessor {
-    
+
     /**
      * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
      * @param toDoStrings An array containing the words from the user's input when the todo Keyword is encountered.

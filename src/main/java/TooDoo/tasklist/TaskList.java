@@ -73,7 +73,7 @@ public class TaskList {
     public String addEvent(String description, String from, String to) throws EmptyDescriptionException,
             EmptyFromException, EmptyToException, DateTimeConflictException {
         return TaskListAdder.addEvent(tasks, description, from, to);
-    }   
+    }
 
     /**
      * Marks a task in the task list at the specified index as done and prints the appropriate message.

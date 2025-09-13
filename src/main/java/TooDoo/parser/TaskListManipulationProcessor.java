@@ -7,8 +7,11 @@ import toodoo.exceptions.TaskAlreadyMarkedException;
 import toodoo.exceptions.TaskAlreadyUnmarkedException;
 import toodoo.tasklist.TaskList;
 
+/**
+ * Process the user's input when task list manipulation Keywords are encountered.
+ */
 public class TaskListManipulationProcessor {
-    
+
     /**
      * Handles the user's input when the mark Keyword is encountered and returns the response string.
      * @param splitUserInput An array containing the words in the user's input.

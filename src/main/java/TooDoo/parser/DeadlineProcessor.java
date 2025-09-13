@@ -3,8 +3,11 @@ package toodoo.parser;
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
 
+/**
+ * Processes the user's input when the deadline Keyword is encountered.
+ */
 public class DeadlineProcessor {
-    
+
     /**
      * Processes the user's input when the deadline Keyword is encountered and returns
      * the deadline's description and deadline.

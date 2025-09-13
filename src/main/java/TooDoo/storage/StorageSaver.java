@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import toodoo.tasklist.TaskList;
 import toodoo.tasks.Task;
 
+/**
+ * Saves the current task list in the .txt storage file.
+ */
 public class StorageSaver {
-    
+
     /**
      * Saves the current task list and writes to the .txt file specified in the constructor if the file exists.
      *

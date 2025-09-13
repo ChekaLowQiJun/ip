@@ -15,16 +15,19 @@ import toodoo.tasks.Event;
 import toodoo.tasks.Task;
 import toodoo.tasks.ToDo;
 
+/**
+ * Adds a ToDo, Deadline or Event to the task list.
+ */
 public class TaskListAdder {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    
+
     /**
      * Adds a ToDo to the task list.
      * @param description The description of the ToDo.
      * @return A confirmation message.
      * @throws EmptyDescriptionException If the description of the ToDo is an empty string.
      */
-    public static String addToDo(ArrayList<Task> tasks,String description) throws EmptyDescriptionException {
+    public static String addToDo(ArrayList<Task> tasks, String description) throws EmptyDescriptionException {
         assert description != null : "Description should not be null";
         assert !description.trim().isEmpty() : "Description should not be empty";
 
@@ -43,8 +46,8 @@ public class TaskListAdder {
      * @throws EmptyDescriptionException If the description of the Deadline is an empty string.
      * @throws EmptyDeadlineException If the deadline of the Deadline is an empty string.
      */
-    public static String addDeadline(ArrayList<Task> tasks,String description, String deadline) throws EmptyDescriptionException,
-            EmptyDeadlineException {
+    public static String addDeadline(ArrayList<Task> tasks, String description, String deadline)
+            throws EmptyDescriptionException, EmptyDeadlineException {
         assert description != null : "Description should not be null";
         assert !description.trim().isEmpty() : "Description should not be empty";
         assert deadline != null : "Deadline should not be null";
@@ -74,8 +77,8 @@ public class TaskListAdder {
      * @throws EmptyToException If the to of the Event is an empty string.
      * @throws DateTimeConflictException If the to is before the from.
      */
-    public static String addEvent(ArrayList<Task> tasks, String description, String from, String to) throws EmptyDescriptionException,
-            EmptyFromException, EmptyToException, DateTimeConflictException {
+    public static String addEvent(ArrayList<Task> tasks, String description, String from, String to)
+            throws EmptyDescriptionException, EmptyFromException, EmptyToException, DateTimeConflictException {
         assert description != null : "Description should not be null";
         assert !description.trim().isEmpty() : "Description should not be empty";
         assert from != null : "From time should not be null";

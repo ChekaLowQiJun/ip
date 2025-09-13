@@ -2,10 +2,13 @@ package toodoo.tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * Extract the relevant date and time from a task.
+ */
 public class TaskDateTime {
-    
+
     /**
-     * Helper method to extract the relevant date from a task
+     * Helper method to extract the relevant date and time from a task
      * For Events: returns the from date
      * For Deadlines: returns the deadline
      * For ToDos: returns a very distant future date (so they sort to the end)

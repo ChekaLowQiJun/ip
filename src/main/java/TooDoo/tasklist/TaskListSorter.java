@@ -9,6 +9,9 @@ import toodoo.tasks.Event;
 import toodoo.tasks.Task;
 import toodoo.tasks.TaskDateTime;
 
+/**
+ * Sorts the task list.
+ */
 public class TaskListSorter {
     /**
      * Sorts the task list according to specific criteria:

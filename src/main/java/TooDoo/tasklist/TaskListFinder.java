@@ -7,10 +7,13 @@ import java.util.stream.IntStream;
 
 import toodoo.tasks.Task;
 
+/**
+ * Prints the Tasks in the task list that contain the regex specified.
+ */
 public class TaskListFinder {
-    
+
     /**
-     * Prints the Tasks in the tasklist that contains the regex in their description.
+     * Prints the Tasks in the task list that contains the regex in their description.
      * @param regex A regular expression used to find Tasks by their description.
      * @return A string containing matching tasks.
      */

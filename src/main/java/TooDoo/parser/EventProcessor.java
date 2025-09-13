@@ -5,8 +5,11 @@ import toodoo.exceptions.EmptyDescriptionException;
 import toodoo.exceptions.EmptyFromException;
 import toodoo.exceptions.EmptyToException;
 
+/**
+ * Processes the user's input when the event Keyword is encountered.
+ */
 public class EventProcessor {
-    
+
     /**
      * Processes the user's input when the event Keyword is encountered and
      * returns the event's description, from and to.

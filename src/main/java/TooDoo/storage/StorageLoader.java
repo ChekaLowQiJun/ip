@@ -8,8 +8,11 @@ import java.util.Scanner;
 import toodoo.exceptions.StorageFormatException;
 import toodoo.tasks.Task;
 
+/**
+ * Loads the task list from the .txt storage file.
+ */
 public class StorageLoader {
-    
+
     /**
      * Loads the task list from the .txt file specified in the constructor if it exists and returns it.
      * @return The task list from the .txt file.

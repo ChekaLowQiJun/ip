@@ -34,7 +34,8 @@ public class ParserTest {
         assertEquals(taskList.toString(), parser.processUserInput(taskList, testListInput));
 
         String testSortInput = "sort";
-        assertEquals("Can't be sorting an empty task list now, can we?", parser.processUserInput(taskList, testSortInput));
+        assertEquals("Can't be sorting an empty task list now, can we?",
+                parser.processUserInput(taskList, testSortInput));
     }
 
     @Test
