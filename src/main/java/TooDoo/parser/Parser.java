@@ -1,9 +1,5 @@
 package toodoo.parser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import toodoo.exceptions.DateTimeConflictException;
 import toodoo.exceptions.EmptyDeadlineException;
 import toodoo.exceptions.EmptyDescriptionException;
@@ -60,9 +56,9 @@ public class Parser {
             case LIST:
                 return taskList.toString();
             case MARK:
-                return handleMark(splitUserInput, taskList);
+                return TaskListManipulationProcessor.handleMark(splitUserInput, taskList);
             case UNMARK:
-                return handleUnmark(splitUserInput, taskList);
+                return TaskListManipulationProcessor.handleUnmark(splitUserInput, taskList);
             case TODO:
                 String processedToDoString = this.processToDoString(splitUserInput);
 
@@ -82,9 +78,9 @@ public class Parser {
 
                 return taskList.addEvent(processedEventString[0], processedEventString[1], processedEventString[2]);
             case DELETE:
-                return handleDelete(splitUserInput, taskList);
+                return TaskListManipulationProcessor.handleDelete(splitUserInput, taskList);
             case FIND:
-                return handleFind(splitUserInput, taskList);
+                return TaskListManipulationProcessor.handleFind(splitUserInput, taskList);
             case SORT:
                 return taskList.sortTasks();
             case UNKNOWN:
@@ -103,191 +99,18 @@ public class Parser {
         }
     }
 
-    /**
-     * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
-     * @param toDoStrings An array containing the words from the user's input when the todo Keyword is encountered.
-     * @return The todo's description.
-     * @throws EmptyDescriptionException If the todo's description is an empty string.
-     */
     public String processToDoString(String... toDoStrings) throws EmptyDescriptionException {
-        if (toDoStrings.length == 1) {
-            throw new EmptyDescriptionException();
-        }
-
-        List<String> list = new ArrayList<>(Arrays.asList(toDoStrings));
-        list.remove(0);
-
-        return String.join(" ", list);
+        return ToDoProcessor.processToDoString(toDoStrings);
     }
 
-    /**
-     * Processes the user's input when the deadline Keyword is encountered and returns
-     * the deadline's description and deadline.
-     * @param deadlineStrings An array containing the words from the user's input
-     *     when the deadline Keyword is encountered.
-     * @return An array containing the deadlines's description and deadline.
-     * @throws EmptyDescriptionException If the deadline's description is an empty string.
-     * @throws EmptyDeadlineException If the deadline's deadline is an empty string.
-     */
     public String[] processDeadlineString(String[] deadlineStrings) throws EmptyDescriptionException,
-            EmptyDeadlineException {
-        assert deadlineStrings != null : "Input array should not be null";
-        assert deadlineStrings.length > 1 : "Input should contain more than keyword";
-
-        String[] deadlineOutputs = new String[2];
-        StringBuilder description = new StringBuilder();
-        StringBuilder deadline = new StringBuilder();
-        boolean isBeforeDeadline = true;
-
-        for (int i = 1; i < deadlineStrings.length; i++) {
-            if (deadlineStrings[i].equals("/by")) {
-                isBeforeDeadline = false;
-            } else if (isBeforeDeadline) {
-                description.append(deadlineStrings[i] + " ");
-            } else {
-                deadline.append(deadlineStrings[i] + " ");
-            }
-        }
-
-        if (description.length() == 0) {
-            throw new EmptyDescriptionException();
-        } else if (deadline.length() == 0) {
-            throw new EmptyDeadlineException();
-        }
-
-        deadlineOutputs[0] = description.deleteCharAt(description.length() - 1).toString();
-        deadlineOutputs[1] = deadline.deleteCharAt(deadline.length() - 1).toString();
-
-        return deadlineOutputs;
+            EmptyDeadlineException{
+        return DeadlineProcessor.processDeadlineString(deadlineStrings);
     }
 
-    /**
-     * Processes the user's input when the event Keyword is encountered and
-     * returns the event's description, from and to.
-     * @param eventStrings An array containing the words from the user's input when the event Keyword is encountered.
-     * @return An array containing the event's description, from and to.
-     * @throws EmptyDescriptionException If the event's description is an empty string.
-     * @throws EmptyFromException If the event's from is an empty string.
-     * @throws EmptyToException If the event's to is an empty string.
-     * @throws DateTimeConflictException If the to is before the from.
-     */
     public String[] processEventString(String[] eventStrings) throws EmptyDescriptionException,
             EmptyFromException, EmptyToException, DateTimeConflictException {
-        assert eventStrings != null : "Input array should not be null";
-        assert eventStrings.length > 1 : "Input should contain more than keyword";
-
-        String[] eventOutputs = new String[3];
-        StringBuilder description = new StringBuilder();
-        StringBuilder from = new StringBuilder();
-        StringBuilder to = new StringBuilder();
-        boolean isBeforeFrom = true;
-        boolean isBeforeTo = true;
-
-        for (int i = 1; i < eventStrings.length; i++) {
-            if (eventStrings[i].equals("/from")) {
-                isBeforeFrom = false;
-            } else if (eventStrings[i].equals("/to")) {
-                isBeforeTo = false;
-            } else if (isBeforeFrom) {
-                description.append(eventStrings[i] + " ");
-            } else if (isBeforeTo) {
-                from.append(eventStrings[i] + " ");
-            } else {
-                to.append(eventStrings[i] + " ");
-            }
-        }
-
-        if (description.length() == 0) {
-            throw new EmptyDescriptionException();
-        } else if (from.length() == 0) {
-            throw new EmptyFromException();
-        } else if (to.length() == 0) {
-            throw new EmptyToException();
-        }
-
-        eventOutputs[0] = description.deleteCharAt(description.length() - 1).toString();
-        eventOutputs[1] = from.deleteCharAt(from.length() - 1).toString();
-        eventOutputs[2] = to.deleteCharAt(to.length() - 1).toString();
-
-        return eventOutputs;
+        return EventProcessor.processEventString(eventStrings);
     }
 
-    /**
-     * Handles the user's input when the mark Keyword is encountered and returns the response string.
-     * @param splitUserInput An array containing the words in the user's input.
-     * @param taskList A TaskList object used to manage TooDoo's task list.
-     * @return Response string generated by marking the task.
-     * @throws EmptyIndexException If the index to be marked is not specified.
-     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
-     * @throws TaskAlreadyMarkedException If the task specified is already done.
-     */
-    public String handleMark(String[] splitUserInput, TaskList taskList) throws EmptyIndexException,
-            IndexDoesNotExistException, TaskAlreadyMarkedException {
-        int index;
-
-        if (splitUserInput.length == 1) {
-            throw new EmptyIndexException();
-        }
-
-        index = Integer.parseInt(splitUserInput[1]) - 1;
-
-        return taskList.mark(index);
-    }
-
-    /**
-     * Handles the user's input when the unmark Keyword is encountered and returns the response string.
-     * @param splitUserInput An array containing the words in the user's input.
-     * @param taskList A TaskList object used to manage TooDoo's task list.
-     * @return Response string generated by unmarking the task.
-     * @throws EmptyIndexException If the index to be unmarked is not specified.
-     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
-     * @throws TaskAlreadyUnmarkedException If the task specified is already marked as not done.
-     */
-    public String handleUnmark(String[] splitUserInput, TaskList taskList) throws EmptyIndexException,
-            IndexDoesNotExistException, TaskAlreadyUnmarkedException {
-        int index;
-
-        if (splitUserInput.length == 1) {
-            throw new EmptyIndexException();
-        }
-
-        index = Integer.parseInt(splitUserInput[1]) - 1;
-
-        return taskList.unmark(index);
-    }
-
-    /**
-     * Handles the user's input when the delete Keyword is encountered and returns the response string.
-     * @param splitUserInput An array containing the words in the user's input.
-     * @param taskList A TaskList object used to manage TooDoo's task list.
-     * @return Response string generated by deleting the task.
-     * @throws EmptyIndexException If the index to be deleted is not specified.
-     * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
-     */
-    public String handleDelete(String[] splitUserInput, TaskList taskList) throws EmptyIndexException,
-            IndexDoesNotExistException {
-        int index;
-
-        if (splitUserInput.length == 1) {
-            throw new EmptyIndexException();
-        }
-
-        index = Integer.parseInt(splitUserInput[1]) - 1;
-
-        return taskList.delete(index);
-    }
-
-    /**
-     * Handles the user's input when the find Keyword is encountered and returns the response string.
-     * @param splitUserInput An array containing the words in the user's input.
-     * @param taskList A TaskList object used to manage TooDoo's task list.
-     * @return Response string generated by finding the task.
-     * @throws EmptyRegexException If the regex to find is not specified.
-     */
-    public String handleFind(String[] splitUserInput, TaskList taskList) throws EmptyRegexException {
-        if (splitUserInput.length == 1) {
-            throw new EmptyRegexException();
-        }
-        return taskList.find(splitUserInput[1]);
-    }
 }
