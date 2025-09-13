@@ -93,32 +93,13 @@ public class Parser {
                 throw new UnknownKeywordException(firstWord);
             }
 
-        } catch (UnknownKeywordException e) {
-            return e.getMessage();
-        } catch (EmptyDescriptionException e) {
-            return e.getMessage();
-        } catch (EmptyDeadlineException e) {
-            return e.getMessage();
-        } catch (EmptyFromException e) {
-            return e.getMessage();
-        } catch (EmptyToException e) {
-            return e.getMessage();
-        } catch (EmptyRegexException e) {
-            return e.getMessage();
-        } catch (EmptyIndexException e) {
-            return e.getMessage();
-        } catch (DateTimeConflictException e) {
-            return e.getMessage();
-        } catch (IndexDoesNotExistException e) {
-            return e.getMessage();
-        } catch (TaskAlreadyMarkedException e) {
-            return e.getMessage();
-        } catch (TaskAlreadyUnmarkedException e) {
+        } catch (UnknownKeywordException | EmptyDescriptionException | EmptyDeadlineException
+                | EmptyFromException | EmptyToException | EmptyRegexException | EmptyIndexException
+                | DateTimeConflictException | IndexDoesNotExistException | TaskAlreadyMarkedException
+                | TaskAlreadyUnmarkedException | EmptyTaskListException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
             return "Please provide a valid integer for the task number :(";
-        } catch (EmptyTaskListException e) {
-            return e.getMessage();
         }
     }
 
@@ -310,5 +291,3 @@ public class Parser {
         return taskList.find(splitUserInput[1]);
     }
 }
-
-
