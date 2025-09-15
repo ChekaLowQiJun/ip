@@ -2,6 +2,7 @@ package toodoo.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,8 +30,16 @@ public class StorageLoader {
         Scanner taskListScanner = new Scanner(taskListFile);
 
         while (taskListScanner.hasNext()) {
-            Task processedStorageInput = StorageInputProcessor.processStorageInput(taskListScanner.nextLine());
-            tasks.add(processedStorageInput);
+            String input = taskListScanner.nextLine();
+
+            try {
+                Task processedStorageInput = StorageInputProcessor.processStorageInput(input);
+                tasks.add(processedStorageInput);
+            } catch (DateTimeParseException e) {
+                System.out.println("Please check the date time format of this line:\n"
+                        + input);
+                continue;
+            }
         }
 
         taskListScanner.close();
