@@ -15,6 +15,7 @@ public class Storage {
 
     /**
      * Constructs the Storage object using the filePath of the existing task list.
+     *
      * @param filePath File path to the existing .txt file containing the task list.
      */
     public Storage(String filePath) {
@@ -26,6 +27,7 @@ public class Storage {
 
     /**
      * Saves the current task list to the storage file.
+     *
      * @param taskList The TaskList to be saved.
      * @return A confirmation message indicating the save result.
      */
@@ -35,6 +37,7 @@ public class Storage {
 
     /**
      * Loads the task list from the storage file.
+     *
      * @return The loaded ArrayList of Tasks.
      * @throws FileNotFoundException If the storage file does not exist.
      * @throws StorageFormatException If the storage file is not in the expected format.

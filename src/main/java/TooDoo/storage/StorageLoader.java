@@ -16,6 +16,7 @@ public class StorageLoader {
 
     /**
      * Loads the task list from the .txt file specified in the constructor if it exists and returns it.
+     *
      * @return The task list from the .txt file.
      * @throws FileNotFoundException If the file specified in the constructor does not exist.
      * @throws StorageFormatException If the .txt file is not in the expected format.
@@ -24,8 +25,6 @@ public class StorageLoader {
         ArrayList<Task> tasks = new ArrayList<>();
 
         File taskListFile = new File(filePath);
-
-        assert taskListFile.exists() : "File should exist for loading";
 
         Scanner taskListScanner = new Scanner(taskListFile);
 

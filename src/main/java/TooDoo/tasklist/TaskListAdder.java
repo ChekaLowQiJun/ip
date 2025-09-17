@@ -40,6 +40,7 @@ public class TaskListAdder {
 
     /**
      * Adds a Deadline to the task list.
+     *
      * @param description The description of the Deadline.
      * @param deadline The deadline of the Deadline.
      * @return A confirmation message.
@@ -68,6 +69,7 @@ public class TaskListAdder {
 
     /**
      * Adds an Event to the task list.
+     *
      * @param description The description of the Event.
      * @param from The from of the Event.
      * @param to The to of the Event.

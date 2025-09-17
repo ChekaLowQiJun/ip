@@ -13,6 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline task.
+     *
      * @param description The description of the Deadline task.
      * @param deadline The deadline of the Deadline task.
      */
@@ -26,6 +27,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of a Deadline.
+     *
      * @return The type, status, description and deadline of a Deadline.
      */
     @Override
@@ -39,6 +41,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of a Deadline to be saved in the storage.
+     *
      * @return The type status, description and deadline of a Deadline.
      */
     @Override
@@ -51,6 +54,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline date of the Deadline.
+     *
      * @return The deadline date of the Deadline.
      */
     public LocalDateTime getDeadline() {

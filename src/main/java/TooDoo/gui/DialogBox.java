@@ -51,6 +51,7 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox for user.
+     *
      * @param text The text input from the user.
      * @param img An image representing the user.
      * @return A DialogBox for the user's input.
@@ -61,6 +62,7 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox for TooDoo.
+     *
      * @param text The text output from the TooDOo.
      * @param img An image representing TooDOo.
      * @return A DialogBox for TooDoo's output.

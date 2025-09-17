@@ -48,6 +48,7 @@ public class TaskList {
 
     /**
      * Adds a Deadline to the task list.
+     *
      * @param description The description of the Deadline.
      * @param deadline The deadline of the Deadline.
      * @return A confirmation message.
@@ -61,6 +62,7 @@ public class TaskList {
 
     /**
      * Adds an Event to the task list.
+     *
      * @param description The description of the Event.
      * @param from The from time of the Event.
      * @param to The to time of the Event.
@@ -77,6 +79,7 @@ public class TaskList {
 
     /**
      * Marks a task in the task list at the specified index as done and prints the appropriate message.
+     *
      * @param index The index of the task in the task list that the user would like to mark.
      * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
@@ -100,6 +103,7 @@ public class TaskList {
 
     /**
      * Unmarks a task in the task list at the specified index and prints the appropriate message.
+     *
      * @param index The index of the task in the task list that the user would like to unmark.
      * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
@@ -123,6 +127,7 @@ public class TaskList {
 
     /**
      * Deletes a task in the task list at the specified index and prints the appropriate message.
+     *
      * @param index The index of the task in the task list that the user would like to delete.
      * @return A confirmation message.
      * @throws IndexDoesNotExistException If the index is out of bounds of the taskList.
@@ -143,6 +148,7 @@ public class TaskList {
 
     /**
      * Returns the task list.
+     *
      * @return The task list of TooDoo.
      */
     public ArrayList<Task> getArrayList() {
@@ -151,6 +157,7 @@ public class TaskList {
 
     /**
      * Prints the Tasks in the tasklist that contains the regex in their description.
+     *
      * @param regex A regular expression used to find Tasks by their description.
      * @return A string containing matching tasks.
      */
@@ -160,6 +167,7 @@ public class TaskList {
 
     /**
      * Returns a string representation of the task list.
+     *
      * @return A formatted string of all tasks.
      */
     @Override
@@ -175,6 +183,7 @@ public class TaskList {
 
     /**
      * Validates that the given index exists in the task list.
+     *
      * @param index Index of task.
      * @throws IndexDoesNotExistException If the index provided is not valid.
      */
@@ -186,6 +195,7 @@ public class TaskList {
 
     /**
      * Sorts the task list according to a specific criteria.
+     *
      * @return A confirmation message indicating the tasks have been sorted.
      * @throws EmptyTaskListException If the task list is empty.
      */

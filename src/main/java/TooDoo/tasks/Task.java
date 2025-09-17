@@ -9,6 +9,7 @@ public class Task {
 
     /**
      * Constructs a Task.
+     *
      * @param description The description of the Task.
      */
     public Task(String description) {
@@ -21,6 +22,7 @@ public class Task {
 
     /**
      * Returns the description of the Task.
+     *
      * @return The description of the Task.
      */
     public String getDescription() {
@@ -29,6 +31,7 @@ public class Task {
 
     /**
      * Returns an icon or space representing the status of the Task.
+     *
      * @return An X if the Task is done and a space otherwise.
      */
     public String getStatusIcon() {
@@ -53,6 +56,7 @@ public class Task {
 
     /**
      * Returns the string representation of the Task.
+     *
      * @return The status and description of the Task.
      */
     @Override
@@ -62,6 +66,7 @@ public class Task {
 
     /**
      * Returns the string representation of a Task to be saved in the storage.
+     *
      * @return The type, status and description of a Task.
      */
     public String getTaskString() {
@@ -72,6 +77,7 @@ public class Task {
 
     /**
      * Returns the status of the Task.
+     *
      * @return The status of the Task.
      */
     public boolean getIsDone() {

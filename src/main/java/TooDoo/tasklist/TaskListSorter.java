@@ -19,6 +19,7 @@ public class TaskListSorter {
      * - Events/Deadlines are sorted by their from date/deadline respectively
      * - Tie-breaker for Events/Deadlines is description
      * - ToDos are sorted by description only
+     *
      * @return A confirmation message indicating the tasks have been sorted.
      */
     public static String sortTasks(ArrayList<Task> tasks) throws EmptyTaskListException {
@@ -26,6 +27,8 @@ public class TaskListSorter {
             throw new EmptyTaskListException();
         }
 
+        // The code below was inspired by DeepSeek, with the prompt:
+        // "How should I go about creating a custom sort in Java?"
         tasks.sort((task1, task2) -> {
             // Events and Deadlines come before ToDos
             boolean isTask1Timed = (task1 instanceof Event) || (task1 instanceof Deadline);

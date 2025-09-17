@@ -11,8 +11,12 @@ import toodoo.exceptions.EmptyDescriptionException;
  */
 public class ToDoProcessor {
 
+    // The code below was inspired by DeepSeek, with the prompt:
+    // "How can I effectively use Java Varargs to write cleaner code?"
+
     /**
      * Processes the user's input when the todo Keyword is encountered and returns the todo's description.
+     *
      * @param toDoStrings An array containing the words from the user's input when the todo Keyword is encountered.
      * @return The todo's description.
      * @throws EmptyDescriptionException If the todo's description is an empty string.

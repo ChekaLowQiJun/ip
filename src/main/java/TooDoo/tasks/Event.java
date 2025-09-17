@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task.
+     *
      * @param description The description of the Event task.
      * @param from The starting time of the Event task.
      * @param to The ending time of the Event task.
@@ -30,6 +31,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of an Event.
+     *
      * @return The type, status, description, from and to of an Event.
      */
     @Override
@@ -44,6 +46,7 @@ public class Event extends Task {
 
     /**
      * Returns the string representation of an Event to be saved in the storage.
+     *
      * @return The type, status, description, from and to of an Event.
      */
     @Override
@@ -56,6 +59,7 @@ public class Event extends Task {
 
     /**
      * Returns the from date of the Event.
+     *
      * @return The from date of the Event.
      */
     public LocalDateTime getFrom() {
@@ -64,6 +68,7 @@ public class Event extends Task {
 
     /**
      * Returns the to date of the Event.
+     *
      * @return The to date of the Event.
      */
     public LocalDateTime getTo() {

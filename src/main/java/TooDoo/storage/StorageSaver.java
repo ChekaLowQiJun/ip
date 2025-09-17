@@ -35,11 +35,23 @@ public class StorageSaver {
                 fw.close();
                 return "Your task list has been saved successfully!";
             } else {
-                return "Oh noo unfortunately there was an error with saving your task list...apologies!";
+                new File(filePath);
+
+                FileWriter fw = new FileWriter(filePath);
+                StringBuilder taskString = new StringBuilder();
+                ArrayList<Task> tasks = taskList.getArrayList();
+
+                for (int i = 0; i < tasks.size(); i++) {
+                    taskString.append(tasks.get(i).getTaskString()).append("\n");
+                }
+                fw.write(taskString.toString());
+                fw.close();
+
+                return "Oh noo unfortunately there was an error with saving your task list...apologies!"
+                        + "I will create a new .txt for you now!";
             }
         } catch (IOException e) {
             return e.getMessage();
         }
     }
-
 }

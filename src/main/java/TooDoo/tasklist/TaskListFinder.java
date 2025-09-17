@@ -12,8 +12,12 @@ import toodoo.tasks.Task;
  */
 public class TaskListFinder {
 
+    // The code below was inspired by DeepSeek, with the prompt:
+    // "How can I use Java Streams to make my code cleaner?"
+
     /**
      * Prints the Tasks in the task list that contains the regex in their description.
+     *
      * @param regex A regular expression used to find Tasks by their description.
      * @return A string containing matching tasks.
      */
@@ -27,6 +31,7 @@ public class TaskListFinder {
 
     /**
      * Formats the results of the find command.
+     *
      * @param matchingTasks A list of tasks that match the regex.
      * @param regex The regex used to find matching tasks.
      * @return A formatted string of the find results.

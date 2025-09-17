@@ -11,6 +11,7 @@ public class DeadlineProcessor {
     /**
      * Processes the user's input when the deadline Keyword is encountered and returns
      * the deadline's description and deadline.
+     *
      * @param deadlineStrings An array containing the words from the user's input
      *     when the deadline Keyword is encountered.
      * @return An array containing the deadlines's description and deadline.

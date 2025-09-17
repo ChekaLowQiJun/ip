@@ -12,6 +12,7 @@ public class EventProcessor {
     /**
      * Processes the user's input when the event Keyword is encountered and
      * returns the event's description, from and to.
+     *
      * @param eventStrings An array containing the words from the user's input when the event Keyword is encountered.
      * @return An array containing the event's description, from and to.
      * @throws EmptyDescriptionException If the event's description is an empty string.
@@ -41,6 +42,7 @@ public class EventProcessor {
 
     /**
      * Removes the last character from a StringBuilder.
+     *
      * @param string The StringBuilder from which to remove the last character.
      * @return The StringBuilder with the last character removed.
      */
@@ -50,6 +52,7 @@ public class EventProcessor {
 
     /**
      * Check the event inputs for missing details.
+     *
      * @param description Description of the event.
      * @param from From of the event.
      * @param to To of the event.
@@ -70,6 +73,7 @@ public class EventProcessor {
 
     /**
      * Builds the fields of an event.
+     *
      * @param eventStrings An array containing the words from the user's input when the event Keyword is encountered.
      * @param description Description of the event.
      * @param from From of the event.
