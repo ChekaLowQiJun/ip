@@ -35,7 +35,14 @@ public class StorageSaver {
                 fw.close();
                 return "Your task list has been saved successfully!";
             } else {
-                new File(filePath);
+                File file = new File(filePath);
+                File parentDir = file.getParentFile();
+
+                if (parentDir != null && !parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
+
+                file.createNewFile();
 
                 FileWriter fw = new FileWriter(filePath);
                 StringBuilder taskString = new StringBuilder();
