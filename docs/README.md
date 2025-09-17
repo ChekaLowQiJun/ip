@@ -137,11 +137,6 @@ Time to say goodbye? TooDoo will miss you! 😢
 
 **Format:** `bye`
 
-### ❓ Getting help : `help`
-Need a reminder of what TooDoo can do? Just ask!
-
-**Format:** `help`
-
 ## ❓ Frequently Asked Questions
 **Q: What date format should I use?** 📅
 **A:** Stick to `yyyy-MM-dd HH:mm` (e.g., `2024-12-25 18:00` for Christmas dinner at 6 PM)
@@ -173,7 +168,6 @@ Need a reminder of what TooDoo can do? Just ask!
 | **Find** | `find KEYWORD` | `find book` |
 | **Sort** | `sort` | `sort` |
 | **Exit** | `bye` | `bye` |
-| **Help** | `help` | `help` |
 
 ---
 
