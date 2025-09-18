@@ -174,3 +174,10 @@ Time to say goodbye? TooDoo will miss you! 😢
 **Happy task managing!** 🎉 TooDoo is here to make your life easier, one task at a time. Remember: it's not about doing everything perfectly, but about making progress on what matters most. 🚀
 
 *TooDoo: Because getting things done should be delightful!* ✨
+
+### Acknowledgements
+- DeepSeek Prompt: How can I make my User Guide have more personality and be more in depth?
+- ChatGPT Prompt: What should I test for in my Parser Class?
+- DeepSeek Prompt: How can I use Java Streams to make my code cleaner?
+- DeepSeek Prompt: How should I go about creating a custom sort in Java?
+- DeepSeek Prompt: How can I effectively use Java Varargs to write cleaner code?

@@ -32,3 +32,10 @@ public static void main(String[] args) {
         new TooDoo(STORAGE_PATH).run();
     }
 ```
+
+### Acknowledgements
+- DeepSeek Prompt: How can I make my User Guide have more personality and be more in depth?
+- ChatGPT Prompt: What should I test for in my Parser Class?
+- DeepSeek Prompt: How can I use Java Streams to make my code cleaner?
+- DeepSeek Prompt: How should I go about creating a custom sort in Java?
+- DeepSeek Prompt: How can I effectively use Java Varargs to write cleaner code?
