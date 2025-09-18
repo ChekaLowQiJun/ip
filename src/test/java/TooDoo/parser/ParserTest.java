@@ -12,6 +12,9 @@ public class ParserTest {
     private Parser parser;
     private TaskList taskList;
 
+    // The testcases below were inspired by ChatGPT with the prompt:
+    // "What should I test for in my Parser Class?"
+
     @BeforeEach
     public void setUp() {
         parser = new Parser();

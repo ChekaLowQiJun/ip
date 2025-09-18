@@ -29,6 +29,7 @@ public class TaskListSorter {
 
         // The code below was inspired by DeepSeek, with the prompt:
         // "How should I go about creating a custom sort in Java?"
+
         tasks.sort((task1, task2) -> {
             // Events and Deadlines come before ToDos
             boolean isTask1Timed = (task1 instanceof Event) || (task1 instanceof Deadline);
