@@ -14,9 +14,9 @@ import toodoo.tasks.ToDo;
  */
 public class StorageInputProcessor {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final String TODO_REGEX = "^T \\|   \\| .+?$";
-    private static final String DEADLINE_REGEX = "^D \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
-    private static final String EVENT_REGEX = "^E \\|   \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\|"
+    private static final String TODO_REGEX = "^T \\| [ X] \\| .+?$";
+    private static final String DEADLINE_REGEX = "^D \\| [ X] \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+    private static final String EVENT_REGEX = "^E \\| [ X] \\| .+? \\| \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} \\|"
             + " \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
 
     /**
